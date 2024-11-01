@@ -1,7 +1,8 @@
 colcon_ws/build/
 colcon_ws/install/
 colcon_ws/log/
-docker/Unity/
+docker/Unity/*
+!docker/Unity/.gitkeeper
 docker/.config/unityhub/*
 !docker/.config/unityhub/.gitkeeper
 docker/.config/unity3d/*
