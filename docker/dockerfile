@@ -52,7 +52,7 @@ RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
 
 # Install ROS 2 additional packages
 RUN apt update \
-  && apt install -y --no-install-recommends ros-humble-rosbridge-server
+  && apt install -y --no-install-recommends ros-humble-rosbridge-server ros-humble-urdf-launch  ros-humble-urdf-tutorial
 
 # Switch user to ${USER}
 USER ${USER}
