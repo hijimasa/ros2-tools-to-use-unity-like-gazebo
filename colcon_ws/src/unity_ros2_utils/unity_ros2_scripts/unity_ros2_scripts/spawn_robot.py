@@ -9,10 +9,20 @@ class SimLancher(Node):
     def __init__(self):
         super().__init__('sim_launcher')
 
-        self.declare_parameter('urdf_path', ' ')
-        urdf_path = self.get_parameter('urdf_path').get_parameter_value().string_value
-        if urdf_path == '':
+        self.declare_parameter('robot_name', '')
+        robot_name = self.get_parameter('robot_name').get_parameter_value().string_value
+        if robot_name == '':
             return
+        self.declare_parameter('package_name', '')
+        package_name = self.get_parameter('package_name').get_parameter_value().string_value
+        if package_name == '':
+            return
+        self.declare_parameter('node_name', 'robot_state_publisher')
+        node_name = self.get_parameter('node_name').get_parameter_value().string_value
+        self.declare_parameter('param_name', 'robot_description')
+        param_name = self.get_parameter('param_name').get_parameter_value().string_value
+        self.declare_parameter('asset_path', str(os.path.expanduser("~/work/Robot_Unity_App/Assets/Urdf")))
+        asset_path = self.get_parameter('asset_path').get_parameter_value().string_value
         self.declare_parameter('x', 0.0)
         robot_x = self.get_parameter('x').get_parameter_value().double_value
         self.declare_parameter('y', 0.0)
@@ -28,25 +38,20 @@ class SimLancher(Node):
         self.declare_parameter('fixed', False)
         robot_fixed = self.get_parameter('fixed').get_parameter_value().bool_value
 
-        self.sensor_proc = None
-
         self.get_logger().info("command start")
-        self.send_urdf_path("URDF_IMPORT r2d2:file_server2 robot_state_publisher:robot_description /home/hijikata/work/Robot_Unity_App/Assets/Urdf")
+        self.send_urdf_import_settings("URDF_IMPORT " + robot_name + ":" + package_name + " " + node_name + ":" + param_name + " " + asset_path + " " + str(robot_x) + " " + str(robot_y) + " " + str(robot_z) + " " + str(robot_roll) + " " + str(robot_pitch) + " " + str(robot_yaw))
         self.get_logger().info("command end")
 
     def __del__(self):
-        if not self.sensor_proc == None:
-            if self.sensor_proc.poll() is None:
-                killcmd = "kill {pid}".format(pid=self.sensor_proc.pid)
-                subprocess.run(killcmd,shell=True)
+        pass
 
-    def send_urdf_path(self, urdf_path):
+    def send_urdf_import_settings(self, urdf_import_settings):
         host = 'localhost'  # Unity Editorを実行しているPCのIPアドレス
         port = 5000
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((host, port))
-            s.sendall(urdf_path.encode('utf-8'))
+            s.sendall(urdf_import_settings.encode('utf-8'))
 
 def main(args=None):
     rclpy.init(args=args)
