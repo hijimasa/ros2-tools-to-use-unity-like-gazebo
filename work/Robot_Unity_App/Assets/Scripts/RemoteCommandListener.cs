@@ -19,18 +19,14 @@ public class RemoteCommandListener : MonoBehaviour
 
     static RemoteCommandListener()
     {
-        // エディタ起動時、または再生/停止時に呼び出される
-        //Initialize();
         EditorApplication.delayCall += RemoteCommandListener.Initialize;
     }
 
 
     private static void Initialize()
     {
-        Debug.Log("Initializing...");
         // 既に存在する場合、再作成しない
         if (instance != null) return;
-        Debug.Log("Initializing2...");
 
         GameObject obj = new GameObject("RemoteCommandListener");
         instance = obj.AddComponent<RemoteCommandListener>();
