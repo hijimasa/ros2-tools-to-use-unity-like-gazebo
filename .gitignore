@@ -9,6 +9,8 @@ docker/.config/unity3d/*
 !docker/.config/unity3d/.gitkeeper
 docker/.config/google-chrome/*
 !docker/.config/google-chrome/.gitkeeper
+work/Robot_Unity_App/Logs/*
+!work/Robot_Unity_App/Logs/.gitkeeper
 work/Robot_Unity_App/Assets/Urdf/*
 !work/Robot_Unity_App/Assets/Urdf/.gitkeeper
 devel/

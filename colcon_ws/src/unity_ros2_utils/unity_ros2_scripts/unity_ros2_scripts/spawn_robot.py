@@ -1,4 +1,5 @@
 import os
+import socket
 import rclpy
 from rclpy.node import Node
 import subprocess
@@ -8,7 +9,7 @@ class SimLancher(Node):
     def __init__(self):
         super().__init__('sim_launcher')
 
-        self.declare_parameter('urdf_path', '')
+        self.declare_parameter('urdf_path', ' ')
         urdf_path = self.get_parameter('urdf_path').get_parameter_value().string_value
         if urdf_path == '':
             return
@@ -29,34 +30,8 @@ class SimLancher(Node):
 
         self.sensor_proc = None
 
-        spawn_command_path = os.path.join(
-                    get_package_share_directory('isaac_ros2_scripts'), 'spawn_command.sh')
-        temp_spawn_command_path = os.path.join("/tmp", 'spawn_command.sh')
-
-        with open(spawn_command_path, encoding="utf-8") as f:
-            data_lines = f.read()
-
-            data_lines = data_lines.replace("URDF_PATH", urdf_path)
-            data_lines = data_lines.replace("ROBOT_ROLL", str(robot_roll))
-            data_lines = data_lines.replace("ROBOT_PITCH", str(robot_pitch))
-            data_lines = data_lines.replace("ROBOT_YAW", str(robot_yaw))
-            data_lines = data_lines.replace("ROBOT_X", str(robot_x))
-            data_lines = data_lines.replace("ROBOT_Y", str(robot_y))
-            data_lines = data_lines.replace("ROBOT_Z", str(robot_z))
-            data_lines = data_lines.replace("ROBOT_FIXED", str(robot_fixed))
-
-        with open(temp_spawn_command_path, mode="w", encoding="utf-8") as f:
-            f.write(data_lines)
-
-        command = ["bash", temp_spawn_command_path]
-        print(command)
         self.get_logger().info("command start")
-        self.sensor_proc = subprocess.Popen(command)
-        self.sensor_proc.wait()
-        if not self.sensor_proc.stdout == None:
-            lines = self.sensor_proc.stdout.read()
-            for line in lines:
-                print(line)
+        self.send_urdf_path("URDF_IMPORT r2d2:file_server2 robot_state_publisher:robot_description /home/hijikata/work/Robot_Unity_App/Assets/Urdf")
         self.get_logger().info("command end")
 
     def __del__(self):
@@ -64,6 +39,14 @@ class SimLancher(Node):
             if self.sensor_proc.poll() is None:
                 killcmd = "kill {pid}".format(pid=self.sensor_proc.pid)
                 subprocess.run(killcmd,shell=True)
+
+    def send_urdf_path(self, urdf_path):
+        host = 'localhost'  # Unity Editorを実行しているPCのIPアドレス
+        port = 5000
+
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((host, port))
+            s.sendall(urdf_path.encode('utf-8'))
 
 def main(args=None):
     rclpy.init(args=args)
