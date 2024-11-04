@@ -70,6 +70,7 @@ public class CameraMover : MonoBehaviour
             CameraRotationMouseControl(); //カメラの回転 マウス
             CameraSlideMouseControl(); //カメラの縦横移動 マウス
             CameraPositionKeyControl(); //カメラのローカル移動 キー
+            CameraZoomMouseScroll(); // カメラの前進後退 マウスホイール
         }
     }
     
@@ -145,7 +146,14 @@ public class CameraMover : MonoBehaviour
             _camTransform.position = velocity;
         }
     }
-        
+
+    // カメラの前進後退 マウスホイール
+    private void CameraZoomMouseScroll()
+    {
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        _camTransform.position += _camTransform.forward * scrollInput * _positionStep;
+    }
+ 
     //カメラのローカル移動 キー
     private void CameraPositionKeyControl()
     {
