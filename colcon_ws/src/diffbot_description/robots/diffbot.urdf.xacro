@@ -16,7 +16,7 @@
 
   <xacro:diffbot_ros2_control
     name="diffbot" prefix="$(arg prefix)" use_sim="$(arg use_sim)" />
-
+<!--
   <xacro:diffbot_isaac prefix="$(arg prefix)"/>
-    
+-->
 </robot>
