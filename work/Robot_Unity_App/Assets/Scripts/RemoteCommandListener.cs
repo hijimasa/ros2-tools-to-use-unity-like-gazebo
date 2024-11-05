@@ -122,7 +122,7 @@ public class RemoteCommandListener : MonoBehaviour
                 {
                     UrdfJoint urdfJoint = child.GetComponent<UrdfJoint>();
                     articulationBodyList.Add(body);
-                    jointNameList.Add(urdfJoint.name);
+                    jointNameList.Add(urdfJoint.jointName);
                 }
             }
         }
