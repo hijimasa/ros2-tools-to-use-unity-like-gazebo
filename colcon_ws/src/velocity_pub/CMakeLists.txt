@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(diffbot_description)
+project(velocity_pub)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -17,34 +17,18 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(xacro REQUIRED)
-find_package(robot_state_publisher REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(geometry_msgs REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-#xacro_add_files(
-#  robots/head_in.urdf.xacro
-#    INSTALL DESTINATION robots
-#)
+add_executable(velocity_pub src/velocity_pub.cpp)
+ament_target_dependencies(velocity_pub rclcpp geometry_msgs)
 
-# add_custom_target(urdf ALL COMMAND "ros2" "launch" ${PROJECT_NAME} "wamv_description.launch.py")
-
-install(DIRECTORY robots/
-  DESTINATION share/${PROJECT_NAME}/robots)
-
-install(DIRECTORY isaac/
-  DESTINATION share/${PROJECT_NAME}/isaac)
-
-install(DIRECTORY ros2_control/
-  DESTINATION share/${PROJECT_NAME}/ros2_control)
-
-install(DIRECTORY config/
-  DESTINATION share/${PROJECT_NAME}/config)
-
-install(DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME}
-)
+install(TARGETS
+  velocity_pub
+  DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

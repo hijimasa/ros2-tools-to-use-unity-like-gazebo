@@ -16,6 +16,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zsh terminator gnome-terminal git vim tig \
     dbus-x11 libglvnd0 libgl1 libglx0 libegl1 libxext6 libx11-6 \
     ros-humble-desktop \
+    ros-humble-ament-cmake ros-humble-angles ros-humble-controller-manager \
+    ros-humble-pluginlib ros-humble-urdf ros-humble-yaml-cpp-vendor ros-humble-joint-state-pub* \
+    ros-humble-cv-bridge ros-humble-diagnostic-updater \
+    ros-humble-moveit ros-humble-rosbridge-server ros-humble-urdf-launch  ros-humble-urdf-tutorial \
+    ros-humble-xacro ros-humble-realtime-tools ros-humble-control-toolbox ros-humble-ros2-control* ros-humble-ros-testing \
+    ros-humble-teleop-twist-keyboard ros-humble-vision-msgs \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -50,10 +56,6 @@ RUN wget -qO - https://hub.unity3d.com/linux/keys/public | gpg --dearmor | sudo 
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
 
-# Install ROS 2 additional packages
-RUN apt update \
-  && apt install -y --no-install-recommends ros-humble-rosbridge-server ros-humble-urdf-launch  ros-humble-urdf-tutorial
-
 # Switch user to ${USER}
 USER ${USER}
 
@@ -61,7 +63,7 @@ USER ${USER}
 EXPOSE 22
 
 # Switch to user's HOME folder
-WORKDIR /home/${USER}
+WORKDIR /home/${USER}/colcon_ws
 
 RUN echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc
 RUN echo "source /home/${USER}/colcon_ws/install/setup.sh" >> ~/.bashrc

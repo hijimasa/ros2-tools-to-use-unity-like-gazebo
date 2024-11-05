@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Xml;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -108,6 +109,11 @@ public class RemoteCommandListener : MonoBehaviour
         ImportSettings settings = new ImportSettings();
         GameObject robotObject = UrdfRobotExtensions.CreateRuntime(urdfFilePath, settings);
 
+        // Parse URDF File
+        XmlDocument xmlDoc = new XmlDocument();
+        xmlDoc.Load(urdfFilePath);
+
+        JointStatePub jointStatePub = robotObject.AddComponent<JointStatePub>();
         JointStateSub jointStateSub = robotObject.AddComponent<JointStateSub>();
         List<GameObject> childObjectsWithArticulationBody = FindArticulationBodyObjectsInChildren(robotObject);
         List<ArticulationBody> articulationBodyList = new List<ArticulationBody>();
@@ -126,9 +132,24 @@ public class RemoteCommandListener : MonoBehaviour
                 }
             }
         }
+
+        jointStatePub.articulationBodies = articulationBodyList.ToArray();
+        jointStatePub.jointName = jointNameList.ToArray();
+        jointStatePub.jointLength = articulationBodyList.Count;
+        XmlNode jointStateParam = xmlDoc.SelectSingleNode("//robot/ros2_control/hardware/param[@name='joint_states_topic']");
+        if (jointStateParam != null)
+        {
+            jointStatePub.topicName = jointStateParam.InnerText;
+        }
+
         jointStateSub.articulationBodies = articulationBodyList.ToArray();
-        jointStateSub.jointNames = jointNameList.ToArray();
+        jointStateSub.jointName = jointNameList.ToArray();
         jointStateSub.jointLength = articulationBodyList.Count;
+        XmlNode jointCommandParam = xmlDoc.SelectSingleNode("//robot/ros2_control/hardware/param[@name='joint_commands_topic']");
+        if (jointCommandParam != null)
+        {
+            jointStateSub.topicName = jointCommandParam.InnerText;
+        }
 
 /*        
         GameObject rosConnector = GameObject.Find("RosConnectorObject");
@@ -175,8 +196,6 @@ public class RemoteCommandListener : MonoBehaviour
         JointStatePublisher jointStatePublisher = rosConnector.GetComponent<JointStatePublisher>();
         jointStatePublisher.Topic = "/" + robotName + "/joint_states";
         jointStatePublisher.FrameId = robotName;
-        JointStateSubscriber  jointStateSubscriber = rosConnector.GetComponent<JointStateSubscriber>();
-        jointStateSubscriber.Topic = "/" + robotName + "/joint_commands";
 */
     }
 

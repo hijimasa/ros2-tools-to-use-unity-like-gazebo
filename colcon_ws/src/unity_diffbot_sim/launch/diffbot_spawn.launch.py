@@ -36,9 +36,9 @@ def generate_launch_description():
 
     robot_controllers = PathJoinSubstitution(
         [
-            FindPackageShare("isaac_diffbot_sim"),
+            FindPackageShare("unity_diffbot_sim"),
             "config",
-            "isaac_diffbot.yaml",
+            "unity_diffbot.yaml",
         ]
     )
 
@@ -71,14 +71,14 @@ def generate_launch_description():
         arguments=["diff_drive_controller", "--controller-manager", "/controller_manager"],
     )
 
-    #velocity_converter = Node(
-    #    package='velocity_pub',
-    #    name='velocity_pub',
-    #    executable='velocity_pub',
-    #   remappings=[
-    #        ('cmd_vel_stamped', '/diff_drive_controller/cmd_vel'),
-    #    ],
-    #)
+    velocity_converter = Node(
+        package='velocity_pub',
+        name='velocity_pub',
+        executable='velocity_pub',
+       remappings=[
+            ('cmd_vel_stamped', '/diff_drive_controller/cmd_vel'),
+        ],
+    )
         
     isaac_spawn_robot = Node(
         package="unity_ros2_scripts",
@@ -95,35 +95,11 @@ def generate_launch_description():
                     }],
     )
 
-    isaac_prepare_sensors = Node(
-        package="isaac_ros2_scripts",
-        executable="prepare_sensors",
-        parameters=[{'urdf_path': str(relative_urdf_path)}],
-    )
-
-    isaac_prepare_robot_controller = Node(
-        package="isaac_ros2_scripts",
-        executable="prepare_robot_controller",
-        parameters=[{'urdf_path': str(relative_urdf_path)}],
-    )
-
     return LaunchDescription([
-        #RegisterEventHandler(
-        #    event_handler=OnProcessExit(
-        #        target_action=isaac_spawn_robot,
-        #        on_exit=[isaac_prepare_sensors],
-        #    )
-        #),
-        #RegisterEventHandler(
-        #    event_handler=OnProcessExit(
-        #        target_action=isaac_prepare_sensors,
-        #        on_exit=[isaac_prepare_robot_controller],
-        #    )
-        #),
-        #control_node,
+        control_node,
         node_robot_state_publisher,
-        #joint_state_broadcaster_spawner,
-        #diff_drive_controller_spawner,
-        #velocity_converter,
+        joint_state_broadcaster_spawner,
+        diff_drive_controller_spawner,
+        velocity_converter,
         isaac_spawn_robot,
     ])

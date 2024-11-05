@@ -7,16 +7,16 @@ using RosMessageTypes.Sensor;
 public class JointStateSub : MonoBehaviour
 {
     public ArticulationBody[] articulationBodies;
-    public string[] jointNames;
+    public string[] jointName;
     public string topicName = "/joint_states";
     public int jointLength = 19;
-    private List<string> jointNamesList;
+    private List<string> jointNameList;
     private ROSConnection ros;
 
     // Set Parameters
     public float stiffness = 0F;
-    public float damping = 10000F;
-    public float forceLimit = 100F;
+    public float damping = 10000000F;
+    public float forceLimit = float.MaxValue;
 
     void Start()
     {
@@ -30,7 +30,7 @@ public class JointStateSub : MonoBehaviour
             Debug.Log("articulation param:"+articulationBodies[i]);
         }
         
-        jointNamesList = new List<string>(jointNames);
+        jointNameList = new List<string>(jointName);
     }
 
     void Callback(JointStateMsg msg)
@@ -38,7 +38,7 @@ public class JointStateSub : MonoBehaviour
         int index;
         for (int i = 0; i < msg.name.Length; i++)
         {
-            index = jointNamesList.IndexOf(msg.name[i]);
+            index = jointNameList.IndexOf(msg.name[i]);
             if (index != -1)
             {
                 ArticulationDrive aDrive = articulationBodies[index].xDrive;
