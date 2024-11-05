@@ -21,9 +21,9 @@ This repository is under development.
    
 ## How to Use
 
-1. launch Unity and file server.
+1. launch Unity.
    ```bash
-   ros2 launch unity_diffbot_sim bringup_unity_environment.launch.py
+   ros2 run unity_ros2_scripts launcher
    ```
    
 2. Click on the Unity window to activate the script
@@ -32,4 +32,19 @@ This repository is under development.
    ```
    ros2 launch unity_diffbot_sim diffbot_spawn.launch.py
    ```
+
+4. launch ros_tcp_endpoint
+   ```
+   ros2 run ros_tcp_endpoint default_server_endpoint --ros-args -p ROS_IP:=0.0.0.0
+   ```
+
+5. Add "3D Object Plane" to use ground plane.
+
+6. Run Simulation
+
+7. Publish JointState
    
+   Example
+   ```
+   ros2 topic pub /joint_states sensor_msgs/msg/JointState "{header: { stamp: { sec: 0, nanosec: 0}, frame_id: ''}, name: ["right_wheel_joint", "left_wheel_joint"], position: [], velocity: [10.0, 10.0], effort: []}" 
+   ```
