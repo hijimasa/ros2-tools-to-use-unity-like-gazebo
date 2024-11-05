@@ -7,18 +7,15 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using RosSharp.RosBridgeClient;
-using RosSharp.Urdf;
+using Unity.Robotics.UrdfImporter;
 
 [InitializeOnLoad]
 [ExecuteInEditMode]
 public class RemoteCommandListener : MonoBehaviour
 {
     private static RemoteCommandListener instance = null;
-    private TransferFromRosHandlerMinimum transferHandler;
     private TcpListener listener = null;
     private TcpClient client = null;
-    private bool rosConnectorFound = false;
     private bool isRunning = false;
 
     private class StartUpData : ScriptableSingleton<StartUpData>
@@ -56,15 +53,6 @@ public class RemoteCommandListener : MonoBehaviour
     {
         if (isRunning) return; // 多重起動防止
         isRunning = true;
-
-        transferHandler = new TransferFromRosHandlerMinimum();
-        rosConnectorFound = transferHandler.CheckForRosConnector();
-
-        if (!rosConnectorFound)
-        {
-            transferHandler.CreateRosConnector();
-            rosConnectorFound = transferHandler.CheckForRosConnector();
-        }
 
         if (listener != null)
         {
@@ -114,22 +102,35 @@ public class RemoteCommandListener : MonoBehaviour
         string commandString = Encoding.UTF8.GetString(buffer, 0, bytesRead);
         string[] commands = commandString.Split(' ');
 
-        string robotNameParameter = commands[1];
-        string urdfParameter = commands[2];
-        string assetPath = commands[3];
+        string urdfFilePath = commands[1];
 
-        Debug.Log("Received Asset path: " + assetPath);
-        transferHandler.TransferUrdf(assetPath, urdfParameter, robotNameParameter);
+        Debug.Log("Received URDF path: " + urdfFilePath);
+        ImportSettings settings = new ImportSettings();
+        GameObject robotObject = UrdfRobotExtensions.CreateRuntime(urdfFilePath, settings);
 
-        while (!transferHandler.GenerateModelIfReady())
+        JointStateSub jointStateSub = robotObject.AddComponent<JointStateSub>();
+        List<GameObject> childObjectsWithArticulationBody = FindArticulationBodyObjectsInChildren(robotObject);
+        List<ArticulationBody> articulationBodyList = new List<ArticulationBody>();
+        List<string> jointNameList = new List<string>();
+        foreach (GameObject child in childObjectsWithArticulationBody)
         {
-            Thread.Sleep(100);
+            ArticulationBody body = child.GetComponent<ArticulationBody>();
+            Debug.Log("Received joint type: " + body.jointType);
+            if (System.Enum.IsDefined(typeof(ArticulationJointType), body.jointType))
+            {
+                if (body.jointType != ArticulationJointType.FixedJoint)
+                {
+                    UrdfJoint urdfJoint = child.GetComponent<UrdfJoint>();
+                    articulationBodyList.Add(body);
+                    jointNameList.Add(urdfJoint.name);
+                }
+            }
         }
+        jointStateSub.articulationBodies = articulationBodyList.ToArray();
+        jointStateSub.jointNames = jointNameList.ToArray();
+        jointStateSub.jointLength = articulationBodyList.Count;
 
-        string[] robotNameParameterList = robotNameParameter.Split(':');
-        string robotName = robotNameParameterList[0];
-        GameObject robotObject = GameObject.Find(robotName);
-        
+/*        
         GameObject rosConnector = GameObject.Find("RosConnectorObject");
         
         UrdfRobot robot = robotObject.GetComponent<UrdfRobot>();
@@ -176,6 +177,7 @@ public class RemoteCommandListener : MonoBehaviour
         jointStatePublisher.FrameId = robotName;
         JointStateSubscriber  jointStateSubscriber = rosConnector.GetComponent<JointStateSubscriber>();
         jointStateSubscriber.Topic = "/" + robotName + "/joint_commands";
+*/
     }
 
     private static void CleanUp()
@@ -228,6 +230,31 @@ public class RemoteCommandListener : MonoBehaviour
         }
 
         return objectsWithComponent;
+    }
+
+    // ArticulationBodyを持つGameObjectを探してリストとして返す
+    public List<GameObject> FindArticulationBodyObjectsInChildren(GameObject parent)
+    {
+        List<GameObject> articulationBodies = new List<GameObject>();
+        SearchArticulationBodies(parent.transform, articulationBodies);
+        return articulationBodies;
+    }
+
+    // 再帰的にArticulationBodyを持つ子オブジェクトを検索
+    private void SearchArticulationBodies(Transform parent, List<GameObject> articulationBodies)
+    {
+        // 現在のオブジェクトがArticulationBodyを持っている場合、リストに追加
+        ArticulationBody articulationBody = parent.GetComponent<ArticulationBody>();
+        if (articulationBody != null)
+        {
+            articulationBodies.Add(parent.gameObject);
+        }
+
+        // 子オブジェクトを再帰的にチェック
+        foreach (Transform child in parent)
+        {
+            SearchArticulationBodies(child, articulationBodies);
+        }
     }
 }
 

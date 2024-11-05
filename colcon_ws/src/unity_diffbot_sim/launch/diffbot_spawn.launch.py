@@ -83,8 +83,9 @@ def generate_launch_description():
     isaac_spawn_robot = Node(
         package="unity_ros2_scripts",
         executable="spawn_robot",
-        parameters=[{'robot_name': "diffbot",
+        parameters=[{'urdf_path': urdf_path,
                     'package_name' : "diffbot_description",
+                    'unity_project_path' : "~/work/Robot_Unity_App",
                     'x' : 0.0,
                     'y' : 0.0,
                     'z' : 0.0,

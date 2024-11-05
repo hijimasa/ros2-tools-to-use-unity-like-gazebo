@@ -42,6 +42,9 @@ install(DIRECTORY ros2_control/
 install(DIRECTORY config/
   DESTINATION share/${PROJECT_NAME}/config)
 
+install(DIRECTORY meshes/
+  DESTINATION share/${PROJECT_NAME}/meshes)
+
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}
 )

@@ -19,13 +19,6 @@
       },
       "hash": "d0c64ae6aeb9c2558bd6235ddb12579fb9faa82a"
     },
-    "com.siemens.ros-sharp": {
-      "version": "https://github.com/siemens/ros-sharp.git?path=/com.siemens.ros-sharp",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "2d817a602563e5fbbf3707c156efeb4e6a41a85d"
-    },
     "com.unity.burst": {
       "version": "1.8.18",
       "depth": 1,
@@ -125,6 +118,15 @@
       "source": "git",
       "dependencies": {},
       "hash": "c27f00c6cf750d2d0564349b3039d19aa3925e7c"
+    },
+    "com.unity.robotics.urdf-importer": {
+      "version": "https://github.com/Unity-Technologies/URDF-Importer.git?path=/com.unity.robotics.urdf-importer#v0.5.2",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.editorcoroutines": "1.0.0"
+      },
+      "hash": "90f353e4352aae4df52fa2c05e49b804631d2a63"
     },
     "com.unity.robotics.visualizations": {
       "version": "https://github.com/Unity-Technologies/ROS-TCP-Connector.git?path=/com.unity.robotics.visualizations",
