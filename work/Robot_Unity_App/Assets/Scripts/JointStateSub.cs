@@ -23,13 +23,6 @@ public class JointStateSub : MonoBehaviour
         ros = ROSConnection.GetOrCreateInstance();
         ros.Subscribe<JointStateMsg>(topicName, Callback);
 
-        for (int i = 0; i < jointLength; i++)
-        {
-            Debug.Log("Bodies index:"+articulationBodies[i].index);
-            SetParameters(articulationBodies[i]);
-            Debug.Log("articulation param:"+articulationBodies[i]);
-        }
-        
         jointNameList = new List<string>(jointName);
     }
 
@@ -52,19 +45,5 @@ public class JointStateSub : MonoBehaviour
                 articulationBodies[index].xDrive = aDrive;
             }
         }
-    }
-
-    private void SetParameters(ArticulationBody joint)
-    {
-        ArticulationDrive drive = joint.xDrive;
-        // drive.lowerLimit = -30;
-        // drive.upperLimit = 30;
-        drive.stiffness = stiffness;
-        drive.damping = damping;
-        drive.forceLimit = forceLimit;
-        // drive.target = 0;
-        // drive.targetVelocity = 0;
-
-        joint.xDrive = drive;
     }
 }

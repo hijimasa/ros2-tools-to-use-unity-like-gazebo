@@ -14,10 +14,10 @@
   </material>
 
   <physical_material name="wheel">
-    <friction static="1.0" dynamic="1.0">
+    <friction static="1.0" dynamic="1.0"/>
   </physical_material>
   <physical_material name="ball">
-    <friction static="0.0" dynamic="0.0">
+    <friction static="0.0" dynamic="0.0"/>
   </physical_material>
 
   <xacro:macro name="wheel_macro" params="parent prefix xyz">

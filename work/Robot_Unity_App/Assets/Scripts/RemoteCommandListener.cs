@@ -113,6 +113,7 @@ public class RemoteCommandListener : MonoBehaviour
         XmlDocument xmlDoc = new XmlDocument();
         xmlDoc.Load(urdfFilePath);
 
+        // Create JointStatePublisher & JointStateSubscriber
         JointStatePub jointStatePub = robotObject.AddComponent<JointStatePub>();
         JointStateSub jointStateSub = robotObject.AddComponent<JointStateSub>();
         List<GameObject> childObjectsWithArticulationBody = FindArticulationBodyObjectsInChildren(robotObject);
@@ -129,6 +130,13 @@ public class RemoteCommandListener : MonoBehaviour
                     UrdfJoint urdfJoint = child.GetComponent<UrdfJoint>();
                     articulationBodyList.Add(body);
                     jointNameList.Add(urdfJoint.jointName);
+                    
+                    var parameters = GetUnityDriveApiParameters(xmlDoc, urdfJoint.jointName);
+                    ArticulationDrive drive = body.xDrive;
+                    drive.stiffness = parameters["stiffness"];
+                    drive.damping = parameters["damping"];
+                    drive.forceLimit = parameters["force_limit"];
+                    body.xDrive = drive;
                 }
             }
         }
@@ -151,15 +159,7 @@ public class RemoteCommandListener : MonoBehaviour
             jointStateSub.topicName = jointCommandParam.InnerText;
         }
 
-/*        
-        GameObject rosConnector = GameObject.Find("RosConnectorObject");
-        
-        UrdfRobot robot = robotObject.GetComponent<UrdfRobot>();
-        robot.SetRigidbodiesIsKinematic(false);
-        robot.SetCollidersConvex(true);
-        robot.SetUseUrdfInertiaData(true);
-        robot.SetRigidbodiesUseGravity(true);
-
+/*
        // 一番上にあるUrdfLinkコンポーネントにIsBaseLinkを設定
         List<GameObject> childObjectsWithUrdfLink = GetChildObjectsWithComponent<UrdfLink>(robotObject);
         foreach (GameObject child in childObjectsWithUrdfLink)
@@ -182,20 +182,6 @@ public class RemoteCommandListener : MonoBehaviour
             joint.enablePreprocessing = false;
         }
 
-        FixedJoint[] FixedJoints = FindObjectsOfType<FixedJoint>();
-        foreach (FixedJoint joint in FixedJoints)
-        {
-            joint.enablePreprocessing = false;
-        }
-
-        // Create JointStatePublisher & JointStateSubscriber
-        JointStatePatcher jointStatePatcherInstance = rosConnector.AddComponent<JointStatePatcher>();
-        jointStatePatcherInstance.UrdfRobot = robotObject.GetComponent<UrdfRobot>();
-        jointStatePatcherInstance.SetPublishJointStates(true);
-        jointStatePatcherInstance.SetSubscribeJointStates(true);
-        JointStatePublisher jointStatePublisher = rosConnector.GetComponent<JointStatePublisher>();
-        jointStatePublisher.Topic = "/" + robotName + "/joint_states";
-        jointStatePublisher.FrameId = robotName;
 */
     }
 
@@ -274,6 +260,63 @@ public class RemoteCommandListener : MonoBehaviour
         {
             SearchArticulationBodies(child, articulationBodies);
         }
+    }
+
+    public static Dictionary<string, float> GetUnityDriveApiParameters(XmlDocument xmlDoc, string targetJointName)
+    {
+        var parameters = new Dictionary<string, float>();
+
+        // <robot>要素を取得
+        XmlNode robotNode = xmlDoc.SelectSingleNode("/robot");
+        if (robotNode != null)
+        {
+            // 全ての<joint>要素を取得
+            XmlNodeList jointNodes = robotNode.SelectNodes("joint");
+
+            foreach (XmlNode jointNode in jointNodes)
+            {
+                // 指定されたname属性のjointタグを探す
+                if (jointNode.Attributes["name"]?.Value == targetJointName)
+                {
+                    // unity_drive_api内の各パラメータの取得
+                    XmlNode unityDriveApiNode = jointNode.SelectSingleNode("unity_drive_api");
+                    if (unityDriveApiNode != null)
+                    {
+                        // stiffness, damping, force_limitをfloat型に変換して追加
+                        parameters["stiffness"] = TryParseFloat(unityDriveApiNode.Attributes["stiffness"]?.Value);
+                        parameters["damping"] = TryParseFloat(unityDriveApiNode.Attributes["damping"]?.Value);
+                        parameters["force_limit"] = TryParseFloat(unityDriveApiNode.Attributes["force_limit"]?.Value);
+                    }
+                    else
+                    {
+                        Console.WriteLine("unity_drive_api element not found.");
+                        parameters["stiffness"] = 0.0F;
+                        parameters["damping"] = 0.0F;
+                        parameters["force_limit"] = 0.0F;
+                    }
+                    return parameters; // 見つけたら戻り値を返す
+                }
+            }
+
+            // 指定されたnameが見つからなかった場合
+            Console.WriteLine("Joint with the specified name not found.");
+        }
+        else
+        {
+            Console.WriteLine("Robot element not found.");
+        }
+
+        parameters["stiffness"] = 0.0F;
+        parameters["damping"] = 0.0F;
+        parameters["force_limit"] = 0.0F;
+
+        return parameters;
+    }
+
+    // 文字列をfloatに変換するためのヘルパーメソッド
+    private static float TryParseFloat(string value)
+    {
+        return float.TryParse(value, out float result) ? result : 0f;
     }
 }
 
