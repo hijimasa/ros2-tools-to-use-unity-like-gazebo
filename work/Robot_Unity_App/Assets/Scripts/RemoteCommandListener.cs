@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -159,6 +160,84 @@ public class RemoteCommandListener : MonoBehaviour
             jointStateSub.topicName = jointCommandParam.InnerText;
         }
 
+        // Physics Materialの生成
+        // URDFのファイルパスからファイル名を取り除く
+        string directoryPath = Path.GetDirectoryName(urdfFilePath);
+        // "Assets"以前の文字列を取り除く
+        int assetsIndex = directoryPath.IndexOf("Assets");
+        if (assetsIndex >= 0)
+        {
+            directoryPath = directoryPath.Substring(assetsIndex);
+        }
+        // ディレクトリが存在するか確認し、存在しなければ作成する
+        if (!Directory.Exists(directoryPath + "/PhysicsMaterials"))
+        {
+            Directory.CreateDirectory(directoryPath + "/PhysicsMaterials");
+            Debug.Log("Directory created at: " + directoryPath + "/PhysicsMaterials");
+        }
+        // <robot>要素を取得
+        XmlNode robotNode = xmlDoc.SelectSingleNode("/robot");
+        if (robotNode != null)
+        {
+            // 全ての<physics_material>要素を取得
+            XmlNodeList physicsMaterials = robotNode.SelectNodes("physics_material");
+            foreach (XmlNode physicsMaterial in physicsMaterials)
+            {
+                PhysicsMaterial newMaterial = new PhysicsMaterial();
+                XmlNode frictionNode = physicsMaterial.SelectSingleNode("friction");
+                if (frictionNode != null)
+                {
+                    newMaterial.staticFriction = TryParseFloat(frictionNode.Attributes["static"]?.Value);
+                    newMaterial.dynamicFriction = TryParseFloat(frictionNode.Attributes["dynamic"]?.Value);
+                }
+
+                string materialName = physicsMaterial.Attributes["name"]?.Value;
+                string path = directoryPath + "/PhysicsMaterials/" + materialName + ".physicMaterial";
+
+                AssetDatabase.CreateAsset(newMaterial, path);
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        // <robot>要素を取得
+        if (robotNode != null)
+        {
+            // 全ての<link>要素を取得
+            XmlNodeList links = robotNode.SelectNodes("link");
+            foreach (XmlNode link in links)
+            {
+                XmlNode collisionNode = link.SelectSingleNode("collision");
+                if (collisionNode != null)
+                {
+                    XmlNode physicsMaterial = collisionNode.SelectSingleNode("physics_material");
+                    if (physicsMaterial != null)
+                    {
+                        string materialName = physicsMaterial.Attributes["name"]?.Value;
+                        string linkName = link.Attributes["name"]?.Value;
+                        GameObject targetObject = FindInChildrenByName(robotObject.transform, linkName);
+                        if (targetObject != null)
+                        {
+                            Transform collisionTransform = targetObject.transform.Find("Collisions");
+                            if (collisionTransform != null)
+                            {
+                                Transform unnamedCollision = collisionTransform.GetChild(0);
+                                Transform targetCollision = unnamedCollision.GetChild(0);
+                                if (targetCollision != null)
+                                {
+                                    Debug.Log(materialName + ": " + linkName);
+                                    Collider meshCollider = targetCollision.gameObject.GetComponent<Collider>();
+
+                                    string path = directoryPath + "/PhysicsMaterials/" + materialName + ".physicMaterial";
+                                    PhysicsMaterial loadedMaterial = AssetDatabase.LoadAssetAtPath<PhysicsMaterial>(path);
+                                    
+                                    meshCollider.material = loadedMaterial;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 /*
        // 一番上にあるUrdfLinkコンポーネントにIsBaseLinkを設定
         List<GameObject> childObjectsWithUrdfLink = GetChildObjectsWithComponent<UrdfLink>(robotObject);
@@ -168,20 +247,6 @@ public class RemoteCommandListener : MonoBehaviour
             link.IsBaseLink = true;
             break;
         }
-
-        HingeJoint[] HingeJoints = FindObjectsOfType<HingeJoint>();
-        foreach (HingeJoint joint in HingeJoints)
-        {
-            //JointSpring spring = joint.spring;
-            //spring.spring = 1000;
-            //spring.damper = 1000;
-            //spring.targetPosition = 0;
-            //joint.spring = spring;
-            joint.extendedLimits = true;
-            joint.useAcceleration = true;
-            joint.enablePreprocessing = false;
-        }
-
 */
     }
 
@@ -218,8 +283,30 @@ public class RemoteCommandListener : MonoBehaviour
     {
         StopListener();
     }
+
+    GameObject FindInChildrenByName(Transform parent, string name)
+    {
+        // 現在のオブジェクトが目的の名前かを確認
+        if (parent.name == name)
+        {
+            return parent.gameObject;
+        }
+
+        // 子オブジェクトを再帰的にチェック
+        foreach (Transform child in parent)
+        {
+            GameObject result = FindInChildrenByName(child, name);
+            if (result != null)
+            {
+                return result;
+            }
+        }
+        
+        // 見つからなかった場合
+        return null;
+    }
     
-        // 特定のコンポーネントを持つ子オブジェクトを取得するメソッド
+    // 特定のコンポーネントを持つ子オブジェクトを取得するメソッド
     private List<GameObject> GetChildObjectsWithComponent<T>(GameObject parent) where T : Component
     {
         List<GameObject> objectsWithComponent = new List<GameObject>();
