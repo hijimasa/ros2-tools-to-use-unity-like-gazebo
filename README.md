@@ -1,6 +1,6 @@
 # ros2-tools-to-use-unity-like-gazebo
 English | [日本語](README_ja.md)
-![demo](./figs/JointStateVelocity.gif)
+![demo](./figs/ros2_unity_demo.gif)
 
 This repository shows how to control the robot from ros2_control to make Unity easier to use.
 "unity_ros2_scripts" has the python script to launch and control Unity.

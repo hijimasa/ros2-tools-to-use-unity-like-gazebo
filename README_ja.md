@@ -1,6 +1,6 @@
 # ros2-tools-to-use-unity-like-gazebo
 [English](README.md) | 日本語
-![デモ](./figs/JointStateVelocity.gif)
+![demo](./figs/ros2_unity_demo.gif)
 
 このリポジトリは、`ros2_control`からロボットを制御してUnityを簡単に使用できるようにする方法を示しています。
 "unity_ros2_scripts"には、Unityを起動して制御するためのPythonスクリプトが含まれています。
