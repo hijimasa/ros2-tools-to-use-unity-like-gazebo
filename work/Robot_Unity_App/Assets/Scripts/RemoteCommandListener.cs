@@ -11,6 +11,11 @@ using UnityEditor;
 using UnityEngine;
 using Unity.Robotics.UrdfImporter;
 
+using UnitySensors.Sensor.Camera;
+using UnitySensors.Sensor.LiDAR;
+using UnitySensors.ROS.Publisher.Camera;
+using UnitySensors.ROS.Publisher.Image;
+
 [InitializeOnLoad]
 [ExecuteInEditMode]
 public class RemoteCommandListener : MonoBehaviour
@@ -199,6 +204,7 @@ public class RemoteCommandListener : MonoBehaviour
             }
         }
 
+        // Physics Materialの適用
         // <robot>要素を取得
         if (robotNode != null)
         {
@@ -238,6 +244,55 @@ public class RemoteCommandListener : MonoBehaviour
                 }
             }
         }
+
+        // unityタグからセンサの読み込み
+        // <robot>要素を取得
+        if (robotNode != null)
+        {
+            // <unity>要素を取得
+            XmlNode unityNode = robotNode.SelectSingleNode("unity");
+            if (unityNode != null)
+            {
+                // 全ての<physics_material>要素を取得
+                XmlNodeList unitySensors = unityNode.SelectNodes("sensor");
+                foreach (XmlNode sensor in unitySensors)
+                {
+                    string sensorType = sensor.Attributes["type"]?.Value;
+                    string sensorLinkName = sensor.Attributes["name"]?.Value;
+                    GameObject targetObject = FindInChildrenByName(robotObject.transform, sensorLinkName);
+                    if (targetObject != null)
+                    {
+                        switch (sensorType)
+                        {
+                            case "lidar":
+                                Debug.Log("sensor type 'lidar' found");
+                                //LiDARSensor lidarSensor = targetObject.AddComponent<LiDARSensor>();
+                                break;
+                            case "camera":
+                                Debug.Log("sensor type 'camera' found");
+                                //RGBCameraSensor cameraSensor = targetObject.AddComponent<RGBCameraSensor>();
+                                //CameraInfoMsgPublisher cameraInfoPublisher = targetObject.AddComponent<CameraInfoMsgPublisher>();
+                                //CameraImageMsgPublisher cameraImagePublisher = targetObject.AddComponent<CameraImageMsgPublisher>();
+                                //cameraInfoPublisher.topicName = "/"+ robotObject.name + "/" + sensorLinkName + "/camera_info";
+                                //cameraImagePublisher.topicName = "/"+ robotObject.name + "/" + sensorLinkName + "/image_raw";
+                                break;
+                            case "depth_camera":
+                                Debug.Log("sensor type 'depth_camera' found");
+                                //DepthCameraSensor depthCameraSensor = targetObject.AddComponent<DepthCameraSensor>();
+                                //CameraInfoMsgPublisher depthCameraInfoPublisher = targetObject.AddComponent<CameraInfoMsgPublisher>();
+                                //CameraImageMsgPublisher depthCameraImagePublisher = targetObject.AddComponent<CameraImageMsgPublisher>();
+                                //depthCameraInfoPublisher.topicName = "/"+ robotObject.name + "/" + sensorLinkName + "/depth_camera_info";
+                                //depthCameraImagePublisher.topicName = "/"+ robotObject.name + "/" + sensorLinkName + "/depth_image_raw";
+                                break;
+                            default:
+                                Debug.Log("undefined sensor type found");
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
 /*
        // 一番上にあるUrdfLinkコンポーネントにIsBaseLinkを設定
         List<GameObject> childObjectsWithUrdfLink = GetChildObjectsWithComponent<UrdfLink>(robotObject);

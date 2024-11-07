@@ -1,25 +1,56 @@
 # ros2-tools-to-use-unity-like-gazebo
-This repository is under development.
+English | [日本語](README_ja.md)
+![demo](./figs/JointStateVelocity.gif)
+
+This repository shows how to control the robot from ros2_control to make Unity easier to use.
+"unity_ros2_scripts" has the python script to launch and control Unity.
+
+The features of this repository are below:
+- This shows how to control a robot on Unity with ros2_control.
+- This provides a Dockerfile where Unity and ROS2 Humble can coexist.
+- This currently supports prismatic and rotational joints using position and velocity control.
+- This sends joint status (position, velocity and effort) to ros2_control from Unity.
+- This spawns URDF model at the desired timing.
+- This sets stiffness, damping and friction from URDF description.
+
+## Prerequisite
+1. Docker
+1. Unity account
 
 ## Prepare Docker container
 1. Clone this repository
    ```
    git clone https://github.com/hijimasa/ros2-tools-to-use-unity-like-gazebo.git
    ```
-2. Move to docker directory
+2. Initialize Git submodule
    ```
-   cd ros2-tools-to-use-unity-like-gazebo/docker
+   cd ros2-tools-to-use-unity-like-gazebo/
+   git submodule update --init --recursive
    ```
-3. Build docker image
+3. Move to docker directory
+   ```
+   cd docker
+   ```
+4. Build docker image
    ```
    ./build-dokcer-image.bash
    ```
-4. Run docker container
+5. Run docker container
    ```
    ./run-docker-container.bash
    ```
+6. Run UnityHub
+   ```
+   unityhub
+   ```
+7. Sign in Unity
    
 ## How to Use
+
+Tips: Use below command to launch another docker terminal
+```
+docker exec -it ros-humble-unity /bin/bash
+```
 
 1. launch Unity.
    ```bash
@@ -42,9 +73,7 @@ This repository is under development.
 
 6. Run Simulation
 
-7. Publish JointState
-   
-   Example
+7. launch teleop_twist_keyboard
    ```
-   ros2 topic pub /joint_states sensor_msgs/msg/JointState "{header: { stamp: { sec: 0, nanosec: 0}, frame_id: ''}, name: ["right_wheel_joint", "left_wheel_joint"], position: [], velocity: [10.0, 10.0], effort: []}" 
+   ros2 run teleop_twist_keyboard teleop_twist_keyboard
    ```
