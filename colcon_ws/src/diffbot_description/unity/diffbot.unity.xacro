@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="diffbot_isaac" params="prefix">
+  <xacro:macro name="diffbot_unity" params="prefix">
 
     <!-- =============== Isaac Sim =============== -->
-    <isaac>
+    <unity>
       <sensor name="lidar_link" type="lidar">
         <topic>scan</topic>
         <sensor_dimension_num>3</sensor_dimension_num> <!-- 2 or 3 -->
@@ -52,22 +52,7 @@
         <update_rate>10</update_rate>
       </sensor>
       
-      <surface_gripper name="body_link">
-        <topic>gripper_enable</topic>
-        <offset_x>1.0</offset_x>
-        <offset_y>0</offset_y>
-        <offset_z>0</offset_z>
-        <axis>1 0 0</axis>
-        <grip_threshold>0.1</grip_threshold>
-        <force_limit>1.0e2</force_limit>
-        <torque_limit>1.0e3</torque_limit>
-        <bend_angle>0.7854</bend_angle>
-        <stiffness>1.0e4</stiffness>
-        <damping>1.0e3</damping>
-        <retry_close>False</retry_close>
-      </surface_gripper>
-
-    </isaac>
+    </unity>
 
   </xacro:macro>
     

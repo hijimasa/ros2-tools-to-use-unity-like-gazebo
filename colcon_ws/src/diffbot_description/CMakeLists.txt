@@ -33,8 +33,8 @@ find_package(robot_state_publisher REQUIRED)
 install(DIRECTORY robots/
   DESTINATION share/${PROJECT_NAME}/robots)
 
-install(DIRECTORY isaac/
-  DESTINATION share/${PROJECT_NAME}/isaac)
+install(DIRECTORY unity/
+  DESTINATION share/${PROJECT_NAME}/unity)
 
 install(DIRECTORY ros2_control/
   DESTINATION share/${PROJECT_NAME}/ros2_control)
