@@ -40,6 +40,10 @@ class SimLancher(Node):
         robot_yaw = self.get_parameter('Y').get_parameter_value().double_value
         self.declare_parameter('fixed', False)
         robot_fixed = self.get_parameter('fixed').get_parameter_value().bool_value
+        if robot_fixed:
+            robot_fixed_string = "true"
+        else:
+            robot_fixed_string = "false"
 
         self.get_logger().info("command start")
         
@@ -60,7 +64,7 @@ class SimLancher(Node):
             package_path = os.path.join(get_package_share_directory(stl_package_name))
             shutil.copy(package_path.rstrip('/') + "/" + stl_file_path , unity_project_path + "/Assets/Urdf/" + package_name + "/" + filename)
 
-        self.send_urdf_import_settings("URDF_IMPORT " + unity_project_path + "/Assets/Urdf/" + package_name + "/" + urdf_file_name + " " + str(robot_x) + " " + str(robot_y) + " " + str(robot_z) + " " + str(robot_roll) + " " + str(robot_pitch) + " " + str(robot_yaw))
+        self.send_urdf_import_settings("URDF_IMPORT " + unity_project_path + "/Assets/Urdf/" + package_name + "/" + urdf_file_name + " " + str(robot_x) + " " + str(robot_y) + " " + str(robot_z) + " " + str(robot_roll) + " " + str(robot_pitch) + " " + str(robot_yaw) + " " + robot_fixed_string)
         self.get_logger().info("command end")
 
     def __del__(self):

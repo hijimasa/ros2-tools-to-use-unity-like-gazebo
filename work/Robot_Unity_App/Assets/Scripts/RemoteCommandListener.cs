@@ -110,10 +110,32 @@ public class RemoteCommandListener : MonoBehaviour
         string[] commands = commandString.Split(' ');
 
         string urdfFilePath = commands[1];
+        float robot_x = float.Parse(commands[2]);
+        float robot_y = float.Parse(commands[3]);
+        float robot_z = float.Parse(commands[4]);
+        float robot_roll  = float.Parse(commands[5]) * Mathf.Rad2Deg;
+        float robot_pitch = float.Parse(commands[6]) * Mathf.Rad2Deg;
+        float robot_yaw   = float.Parse(commands[7]) * Mathf.Rad2Deg;
+        bool robot_fixed = bool.Parse(commands[8]);
 
         Debug.Log("Received URDF path: " + urdfFilePath);
         ImportSettings settings = new ImportSettings();
         GameObject robotObject = UrdfRobotExtensions.CreateRuntime(urdfFilePath, settings);
+
+        Vector3 newPosition = new Vector3(robot_x, robot_y, robot_z);
+        robotObject.transform.position = newPosition;
+        robotObject.transform.rotation = Quaternion.Euler(-robot_pitch, -robot_yaw, -robot_roll);
+       // 一番上にあるUrdfLinkコンポーネントにIsBaseLinkを設定
+        List<GameObject> childObjectsWithUrdfLink = GetChildObjectsWithComponent<UrdfLink>(robotObject);
+        foreach (GameObject child in childObjectsWithUrdfLink)
+        {
+            UrdfLink link = child.GetComponent<UrdfLink>();
+            link.IsBaseLink = true;
+
+            ArticulationBody body = child.GetComponent<ArticulationBody>();
+            body.immovable = robot_fixed;
+            break;
+        }
 
         // Parse URDF File
         XmlDocument xmlDoc = new XmlDocument();
@@ -292,17 +314,6 @@ public class RemoteCommandListener : MonoBehaviour
                 }
             }
         }
-
-/*
-       // 一番上にあるUrdfLinkコンポーネントにIsBaseLinkを設定
-        List<GameObject> childObjectsWithUrdfLink = GetChildObjectsWithComponent<UrdfLink>(robotObject);
-        foreach (GameObject child in childObjectsWithUrdfLink)
-        {
-            UrdfLink link = child.GetComponent<UrdfLink>();
-            link.IsBaseLink = true;
-            break;
-        }
-*/
     }
 
     private static void CleanUp()

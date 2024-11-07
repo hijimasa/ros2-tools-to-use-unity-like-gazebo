@@ -10,7 +10,7 @@ The features of this repository are below:
 - This provides a Dockerfile where Unity and ROS2 Humble can coexist.
 - This currently supports prismatic and rotational joints using position and velocity control.
 - This sends joint status (position, velocity and effort) to ros2_control from Unity.
-- This spawns URDF model at the desired timing.
+- This spawns URDF model at the desired timing and position.
 - This sets stiffness, damping and friction from URDF description.
 
 ## Prerequisite
