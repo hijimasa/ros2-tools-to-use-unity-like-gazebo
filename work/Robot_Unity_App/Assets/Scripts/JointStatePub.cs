@@ -45,7 +45,7 @@ public class JointStatePub : MonoBehaviour
             ArticulationDrive xDrive = this.articulationBodies[i].xDrive;
             position[i] = articulationBodies[i].jointPosition[0]/Mathf.Rad2Deg;
             velocity[i] = articulationBodies[i].jointVelocity[0]/Mathf.Rad2Deg;
-            effort[i] = articulationBodies[i].jointForce[0]/Mathf.Rad2Deg;
+            effort[i] = articulationBodies[i].driveForce[0]/Mathf.Rad2Deg;
         }
 
         JointStateMsg joint_msg = new JointStateMsg{
