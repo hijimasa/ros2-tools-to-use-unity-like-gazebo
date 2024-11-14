@@ -6,50 +6,63 @@
     <!-- =============== Isaac Sim =============== -->
     <unity>
       <sensor name="lidar_link" type="lidar">
-        <topic>scan</topic>
-        <sensor_dimension_num>3</sensor_dimension_num> <!-- 2 or 3 -->
-        <config>hokuyo/UST-30LX</config>
-        <!-- Config Example
-        <config>Example_Rotary</config>
-        <config>SLAMTEC/RPLIDAR_S2E</config> LaserScan do not work Why?
-        <config>hokuyo/UST-30LX</config> LaserScan do not work Why?
-        -->
+        <update_rate>10</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>400</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.1415</min_angle>
+              <max_angle>3.1415</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.05</min>
+            <max>20.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <topicName>/lidar/scan</topicName>
+        <frameName>lidar_link</frameName>
       </sensor>
 
       <sensor name="camera_link" type="camera">
-        <topic>image_raw</topic>
-        <horizontal_fov_rad>1.3962634</horizontal_fov_rad>
-        <horizontal_focal_length>30</horizontal_focal_length> <!-- optical parameter -->
-        <vertical_focal_length>30</vertical_focal_length> <!-- optical parameter -->
-        <focus_distance>400</focus_distance> <!-- distance for clear image -->
-        <projection>perspective</projection> <!-- perspective or orthgonal -->
+        <update_rate>30.0</update_rate>
+        <horizontal_fov>1.3962634</horizontal_fov>
         <image>
-           <width>600</width>
-           <height>600</height>
+          <width>800</width>
+          <height>600</height>
         </image>
         <clip>
           <near>0.02</near>
           <far>300</far>
         </clip>
-        <update_rate>10.0</update_rate>
+        <cameraName>/camera</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
       </sensor>
 
       <sensor name="depth_camera_link" type="depth_camera">
-        <topic>image_raw</topic>
-        <horizontal_fov_rad>1.3962634</horizontal_fov_rad>
-        <horizontal_focal_length>30</horizontal_focal_length> <!-- optical parameter -->
-        <vertical_focal_length>30</vertical_focal_length> <!-- optical parameter -->
-        <focus_distance>400</focus_distance> <!-- distance for clear image -->
-        <projection>perspective</projection> <!-- perspective or orthgonal -->
+        <update_rate>10.0</update_rate>
+        <horizontal_fov>1.3962634</horizontal_fov>
         <image>
           <width>320</width>
           <height>240</height>
         </image>
         <clip>
-          <near>0.1</near>
-          <far>100</far>
+          <near>0.02</near>
+          <far>300</far>
         </clip>
-        <update_rate>10</update_rate>
+        <cameraName>/depth_camera</cameraName>
+        <imageTopicName>depth_image_raw</imageTopicName>
+        <cameraInfoTopicName>depth_camera_info</cameraInfoTopicName>
+        <frameName>depth_camera_link</frameName>
       </sensor>
       
     </unity>

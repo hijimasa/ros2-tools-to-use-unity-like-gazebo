@@ -14,7 +14,8 @@ using Unity.Robotics.UrdfImporter;
 using UnitySensors.Sensor.Camera;
 using UnitySensors.Sensor.LiDAR;
 using UnitySensors.ROS.Publisher.Camera;
-using UnitySensors.ROS.Publisher.Image;
+using UnitySensors.ROS.Publisher.Sensor;
+using UnitySensors.ROS.Serializer.Sensor;
 
 [InitializeOnLoad]
 [ExecuteInEditMode]
@@ -292,19 +293,31 @@ public class RemoteCommandListener : MonoBehaviour
                                 break;
                             case "camera":
                                 Debug.Log("sensor type 'camera' found");
-                                //RGBCameraSensor cameraSensor = targetObject.AddComponent<RGBCameraSensor>();
-                                //CameraInfoMsgPublisher cameraInfoPublisher = targetObject.AddComponent<CameraInfoMsgPublisher>();
-                                //CameraImageMsgPublisher cameraImagePublisher = targetObject.AddComponent<CameraImageMsgPublisher>();
-                                //cameraInfoPublisher.topicName = "/"+ robotObject.name + "/" + sensorLinkName + "/camera_info";
-                                //cameraImagePublisher.topicName = "/"+ robotObject.name + "/" + sensorLinkName + "/image_raw";
+                                RGBCameraSensor cameraSensor = targetObject.AddComponent<RGBCameraSensor>();
+                                CameraInfoMsgPublisher cameraInfoPublisher = targetObject.AddComponent<CameraInfoMsgPublisher>();
+                                CompressedImageMsgPublisher cameraImagePublisher = targetObject.AddComponent<CompressedImageMsgPublisher>();
+                                cameraInfoPublisher.serializer = new CameraInfoMsgSerializer();
+                                cameraInfoPublisher.serializer.SetHeaderObject(cameraSensor);
+                                cameraInfoPublisher.serializer.SetObject(cameraSensor);
+                                cameraInfoPublisher.topicName = "/"+ robotObject.name + "/" + sensorLinkName + "/camera_info";
+                                cameraImagePublisher.serializer = new CompressedImageMsgSerializer();
+                                cameraImagePublisher.serializer.SetHeaderObject(cameraSensor);
+                                cameraImagePublisher.serializer.SetObject(cameraSensor);
+                                cameraImagePublisher.topicName = "/"+ robotObject.name + "/" + sensorLinkName + "/image_raw";
                                 break;
                             case "depth_camera":
                                 Debug.Log("sensor type 'depth_camera' found");
-                                //DepthCameraSensor depthCameraSensor = targetObject.AddComponent<DepthCameraSensor>();
-                                //CameraInfoMsgPublisher depthCameraInfoPublisher = targetObject.AddComponent<CameraInfoMsgPublisher>();
-                                //CameraImageMsgPublisher depthCameraImagePublisher = targetObject.AddComponent<CameraImageMsgPublisher>();
-                                //depthCameraInfoPublisher.topicName = "/"+ robotObject.name + "/" + sensorLinkName + "/depth_camera_info";
-                                //depthCameraImagePublisher.topicName = "/"+ robotObject.name + "/" + sensorLinkName + "/depth_image_raw";
+                                DepthCameraSensor depthCameraSensor = targetObject.AddComponent<DepthCameraSensor>();
+                                CameraInfoMsgPublisher depthCameraInfoPublisher = targetObject.AddComponent<CameraInfoMsgPublisher>();
+                                CompressedImageMsgPublisher depthCameraImagePublisher = targetObject.AddComponent<CompressedImageMsgPublisher>();
+                                depthCameraInfoPublisher.serializer = new CameraInfoMsgSerializer();
+                                depthCameraInfoPublisher.serializer.SetHeaderObject(depthCameraSensor);
+                                depthCameraInfoPublisher.serializer.SetObject(depthCameraSensor);
+                                depthCameraInfoPublisher.topicName = "/"+ robotObject.name + "/" + sensorLinkName + "/depth_camera_info";
+                                depthCameraImagePublisher.serializer = new CompressedImageMsgSerializer();
+                                depthCameraImagePublisher.serializer.SetHeaderObject(depthCameraSensor);
+                                depthCameraImagePublisher.serializer.SetObject(depthCameraSensor);
+                                depthCameraImagePublisher.topicName = "/"+ robotObject.name + "/" + sensorLinkName + "/depth_image_raw";
                                 break;
                             default:
                                 Debug.Log("undefined sensor type found");

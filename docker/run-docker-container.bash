@@ -18,14 +18,14 @@ docker run -it --rm \
   --privileged \
   -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
   -v $HOME/.Xauthority:$docker/.Xauthority \
-  -v ${file_dir}/../work:$HOME/work \
-  -v ${file_dir}/../colcon_ws:$HOME/colcon_ws \
+  -v ${file_dir}/../work:/home/unity/work \
+  -v ${file_dir}/../colcon_ws:/home/unity/colcon_ws \
   -e XAUTHORITY=$home_folder/.Xauthority \
   -e DISPLAY=$DISPLAY \
   -e QT_X11_NO_MITSHM=1 \
   -v /run/dbus/system_bus_socket:/run/dbus/system_bus_socket \
-  -v ${file_dir}/.config/unityhub:$HOME/.config/unityhub \
-  -v ${file_dir}/.config/unity3d:$HOME/.config/unity3d \
-  -v ${file_dir}/.config/google-chrome:$HOME/.config/google-chrome \
-  -v ${file_dir}/Unity:$HOME/Unity \
+  -v ${file_dir}/.config/unityhub:/home/unity/.config/unityhub \
+  -v ${file_dir}/.config/unity3d:/home/unity/.config/unity3d \
+  -v ${file_dir}/.config/google-chrome:/home/unity/.config/google-chrome \
+  -v ${file_dir}/Unity:/home/unity/Unity \
   -it --name "ros-humble-unity" ${user}/ros-humble-jammy-unity

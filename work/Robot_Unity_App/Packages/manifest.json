@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "com.frj.unity-sensors": "https://github.com/Field-Robotics-Japan/UnitySensors.git?path=/Assets/UnitySensors#v2.0.5",
-    "com.frj.unity-sensors-ros": "https://github.com/Field-Robotics-Japan/UnitySensors.git?path=/Assets/UnitySensorsROS#v2.0.5",
+    "com.frj.unity-sensors": "file:/home/unity/work/UnitySensors/Assets/UnitySensors",
+    "com.frj.unity-sensors-ros": "file:/home/unity/work/UnitySensors/Assets/UnitySensorsROS",
     "com.unity.collab-proxy": "2.5.2",
     "com.unity.feature.development": "1.0.2",
     "com.unity.inputsystem": "1.11.2",

@@ -4,3 +4,6 @@
 [submodule "colcon_ws/src/unity_ros2_utils/topic_based_ros2_control"]
 	path = colcon_ws/src/unity_ros2_utils/topic_based_ros2_control
 	url = https://github.com/hijimasa/topic_based_ros2_control.git
+[submodule "work/UnitySensors"]
+	path = work/UnitySensors
+	url = https://github.com/hijimasa/UnitySensors.git
