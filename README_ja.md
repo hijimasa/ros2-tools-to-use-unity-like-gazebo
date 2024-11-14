@@ -2,6 +2,8 @@
 [English](README.md) | 日本語
 ![demo](./figs/ros2_unity_demo.gif)
 
+![camera_demo](./figs/unity_camera_demo.gif)
+
 このリポジトリは、`ros2_control`からロボットを制御してUnityを簡単に使用できるようにする方法を示しています。
 "unity_ros2_scripts"には、Unityを起動して制御するためのPythonスクリプトが含まれています。
 

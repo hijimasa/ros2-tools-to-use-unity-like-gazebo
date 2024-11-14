@@ -2,6 +2,8 @@
 English | [日本語](README_ja.md)
 ![demo](./figs/ros2_unity_demo.gif)
 
+![camera_demo](./figs/unity_camera_demo.gif)
+
 This repository shows how to control the robot from ros2_control to make Unity easier to use.
 "unity_ros2_scripts" has the python script to launch and control Unity.
 
