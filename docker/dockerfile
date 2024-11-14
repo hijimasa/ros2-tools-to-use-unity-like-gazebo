@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-cv-bridge ros-humble-diagnostic-updater \
     ros-humble-moveit ros-humble-rosbridge-server ros-humble-urdf-launch  ros-humble-urdf-tutorial \
     ros-humble-xacro ros-humble-realtime-tools ros-humble-control-toolbox ros-humble-ros2-control* ros-humble-ros-testing \
-    ros-humble-teleop-twist-keyboard ros-humble-vision-msgs \
+    ros-humble-teleop-twist-keyboard ros-humble-vision-msgs ros-humble-image-transport* \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 

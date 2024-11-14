@@ -95,6 +95,34 @@ def generate_launch_description():
                     }],
     )
 
+    image_republish = Node(
+        package='image_transport',
+        executable='republish',
+        name='image_republish',
+        remappings=[
+            ('in', '/diffbot/camera_link/image_raw'),  # 入力画像トピック
+            ('out', '/camera_link/image_raw')  # 出力画像トピック（非圧縮）
+        ],
+        parameters=[
+            {'in_transport': "commpressed"},
+            {'out_transport': "raw"},
+        ]
+    )
+
+    depth_image_republish = Node(
+        package='image_transport',
+        executable='republish',
+        name='depth_image_republish',
+        remappings=[
+            ('in', '/diffbot/depth_camera_link/image_raw'),  # 入力画像トピック
+            ('out', '/depth_camera_link/image_raw')  # 出力画像トピック（非圧縮）
+        ],
+        parameters=[
+            {'in_transport': "commpressed"},
+            {'out_transport': "raw"},
+        ]
+    )
+
     return LaunchDescription([
         control_node,
         node_robot_state_publisher,
@@ -102,4 +130,6 @@ def generate_launch_description():
         diff_drive_controller_spawner,
         velocity_converter,
         isaac_spawn_robot,
+        image_republish,
+        depth_image_republish,
     ])

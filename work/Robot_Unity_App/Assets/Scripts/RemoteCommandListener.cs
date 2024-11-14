@@ -269,6 +269,8 @@ public class RemoteCommandListener : MonoBehaviour
         }
 
         // unityタグからセンサの読み込み
+        // 次に指定するディスプレイ番号
+        int next_display_number = 1;
         // <robot>要素を取得
         if (robotNode != null)
         {
@@ -294,6 +296,15 @@ public class RemoteCommandListener : MonoBehaviour
                             case "camera":
                                 Debug.Log("sensor type 'camera' found");
                                 RGBCameraSensor cameraSensor = targetObject.AddComponent<RGBCameraSensor>();
+                                cameraSensor._fov = TryParseFloat(sensor.SelectSingleNode("horizontal_fov").InnerText) * 180.0f / 3.14f;
+                                int image_width, image_height;
+                                int.TryParse(sensor.SelectSingleNode("image/width").InnerText, out image_width);
+                                int.TryParse(sensor.SelectSingleNode("image/height").InnerText, out image_height);
+                                cameraSensor._resolution.x = image_width;
+                                cameraSensor._resolution.y = image_height;
+                                UnityEngine.Camera cameraComponent = targetObject.GetComponent<UnityEngine.Camera>();
+                                cameraComponent.targetDisplay = next_display_number;
+                                next_display_number++;
                                 CameraInfoMsgPublisher cameraInfoPublisher = targetObject.AddComponent<CameraInfoMsgPublisher>();
                                 CompressedImageMsgPublisher cameraImagePublisher = targetObject.AddComponent<CompressedImageMsgPublisher>();
                                 cameraInfoPublisher.serializer = new CameraInfoMsgSerializer();
@@ -308,6 +319,15 @@ public class RemoteCommandListener : MonoBehaviour
                             case "depth_camera":
                                 Debug.Log("sensor type 'depth_camera' found");
                                 DepthCameraSensor depthCameraSensor = targetObject.AddComponent<DepthCameraSensor>();
+                                depthCameraSensor._fov = TryParseFloat(sensor.SelectSingleNode("horizontal_fov").InnerText) * 180.0f / 3.14f;
+                                int depth_image_width, depth_image_height;
+                                int.TryParse(sensor.SelectSingleNode("image/width").InnerText, out depth_image_width);
+                                int.TryParse(sensor.SelectSingleNode("image/height").InnerText, out depth_image_height);
+                                depthCameraSensor._resolution.x = depth_image_width;
+                                depthCameraSensor._resolution.y = depth_image_height;
+                                UnityEngine.Camera depthCameraComponent = targetObject.GetComponent<UnityEngine.Camera>();
+                                depthCameraComponent.targetDisplay = next_display_number;
+                                next_display_number++;
                                 CameraInfoMsgPublisher depthCameraInfoPublisher = targetObject.AddComponent<CameraInfoMsgPublisher>();
                                 CompressedImageMsgPublisher depthCameraImagePublisher = targetObject.AddComponent<CompressedImageMsgPublisher>();
                                 depthCameraInfoPublisher.serializer = new CameraInfoMsgSerializer();
