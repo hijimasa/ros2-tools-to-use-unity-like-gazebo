@@ -12,6 +12,8 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
+from launch_ros.actions import ComposableNodeContainer
+from launch_ros.descriptions import ComposableNode
 
 import xacro
 
@@ -98,29 +100,25 @@ def generate_launch_description():
     image_republish = Node(
         package='image_transport',
         executable='republish',
-        name='image_republish',
+        name='image_republisher',
+        arguments=['compressed', 'raw'],
         remappings=[
-            ('in', '/diffbot/camera_link/image_raw'),  # 入力画像トピック
-            ('out', '/camera_link/image_raw')  # 出力画像トピック（非圧縮）
+            ('in/compressed', '/diffbot/camera_link/image_raw'),
+            ('out', '/camera_link/image_raw'),
         ],
-        parameters=[
-            {'in_transport': "commpressed"},
-            {'out_transport': "raw"},
-        ]
+        output='screen',
     )
 
     depth_image_republish = Node(
         package='image_transport',
         executable='republish',
-        name='depth_image_republish',
+        name='depth_image_republisher',
+        arguments=['compressed', 'raw'],
         remappings=[
-            ('in', '/diffbot/depth_camera_link/image_raw'),  # 入力画像トピック
-            ('out', '/depth_camera_link/image_raw')  # 出力画像トピック（非圧縮）
+            ('in/compressed', '/diffbot/depth_camera_link/depth_image_raw'),
+            ('out', '/depth_camera_link/depth_image_raw'),
         ],
-        parameters=[
-            {'in_transport': "commpressed"},
-            {'out_transport': "raw"},
-        ]
+        output='screen',
     )
 
     return LaunchDescription([
