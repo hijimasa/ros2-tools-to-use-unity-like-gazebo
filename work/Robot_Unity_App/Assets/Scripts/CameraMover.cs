@@ -38,22 +38,15 @@ public class CameraMover : MonoBehaviour
 
     private void OnPlayModeChanged(PlayModeStateChange state)
     {
-        if (state == PlayModeStateChange.ExitingEditMode)
+        if (state == PlayModeStateChange.ExitingPlayMode)
         {
-            // プレイモードに入る直前にSceneViewのカメラ位置と回転をキャッシュ
-            SceneView sceneView = SceneView.lastActiveSceneView;
-            if (sceneView != null)
+            if (mainCamera == null)
             {
-                PreviousScenePosition data = new PreviousScenePosition();
-
-                data.editorCamPosition = sceneView.camera.transform.position;
-                data.editorCamRotation = sceneView.camera.transform.rotation;
-                Debug.Log("Exiting Edit Mode - _editorCamPosition saved: " + data.editorCamPosition);
-
-                // データをJSONに変換し、ファイルに保存
-                string json = JsonUtility.ToJson(data);
-                System.IO.File.WriteAllText(Application.persistentDataPath + "/previous_scene_position.json", json);
+                mainCamera = GameObject.Find("Main Camera");
             }
+            Selection.activeGameObject = mainCamera;
+            EditorApplication.ExecuteMenuItem(
+                "GameObject/Align View to Selected");
         }
         else if (state == PlayModeStateChange.EnteredPlayMode)
         {
@@ -61,29 +54,9 @@ public class CameraMover : MonoBehaviour
             {
                 mainCamera = GameObject.Find("Main Camera");
             }
-            if (mainCamera != null)
-            {
-                string path = Application.persistentDataPath + "/previous_scene_position.json";
-                if (System.IO.File.Exists(path))
-                {
-                    // ファイルからデータを読み込んでデシリアライズ
-                    string json = System.IO.File.ReadAllText(path);
-                    PreviousScenePosition data = JsonUtility.FromJson<PreviousScenePosition>(json);
-
-                    // 保存したエディタモードのカメラ位置と回転を適用
-                    mainCamera.transform.position = data.editorCamPosition;
-                    mainCamera.transform.rotation = data.editorCamRotation;
-                    Debug.Log("Entered Play Mode - Main Camera positioned at _editorCamPosition: " + data.editorCamPosition);
-                }
-                else
-                {
-                    Debug.Log("Entered Play Mode - file not found");
-                }
-            }
-            else
-            {
-                Debug.LogWarning("Main Camera が見つかりませんでした。");
-            }
+            Selection.activeGameObject = mainCamera;
+            EditorApplication.ExecuteMenuItem(
+                "GameObject/Align With View");
         }
     }
 
@@ -97,11 +70,11 @@ public class CameraMover : MonoBehaviour
         if (mainCamera != null)
         {
             mainCamera.transform.SetParent(this.transform);
-            Debug.Log("Main Camera を CameraMover の子に設定しました。");
+            Debug.Log("Main Camera is set under CameraMover");
         }
         else
         {
-            Debug.LogWarning("Main Camera が見つかりませんでした。");
+            Debug.LogWarning("Main Camera not found");
         }
 
         _initialCamRotation = this.gameObject.transform.rotation;
@@ -143,7 +116,6 @@ public class CameraMover : MonoBehaviour
         }
     }
 
-    // 右クリックで回転
     private void CameraRotationMouseControl()
     {
         if (Input.GetMouseButtonDown(1))
@@ -163,7 +135,6 @@ public class CameraMover : MonoBehaviour
         }
     }
 
-    // 中ボタンで平行移動
     private void CameraSlideMouseControl()
     {
         if (Input.GetMouseButtonDown(2))
@@ -249,17 +220,14 @@ public class CameraMoverPlacer : MonoBehaviour
 
     static CameraMoverPlacer()
     {
-        // エディタが完全に起動した後に初期化する
         EditorApplication.delayCall += CameraMoverPlacer.Initialize;
     }
 
     private static void Initialize()
     {
-        // StartUpDataの初期化をInitialize内で行う
         if (!StartUpData.instance.IsStartUp())
             return;
 
-        // 既に存在する場合、再作成しない
         if (instance != null) return;
 
         GameObject obj = new GameObject("CameraMover");
