@@ -56,6 +56,8 @@ RUN wget -qO - https://hub.unity3d.com/linux/keys/public | gpg --dearmor | sudo 
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
 
+RUN ln -s /usr/lib/x86_64-linux-gnu/libdl.so.2 /usr/lib/x86_64-linux-gnu/libdl.so
+
 # Switch user to ${USER}
 USER ${USER}
 
