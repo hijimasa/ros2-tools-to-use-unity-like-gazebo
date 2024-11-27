@@ -7,3 +7,6 @@
 [submodule "work/UnitySensors"]
 	path = work/UnitySensors
 	url = https://github.com/hijimasa/UnitySensors.git
+[submodule "colcon_ws/src/leo_common-ros2-for-unity"]
+	path = colcon_ws/src/leo_common-ros2-for-unity
+	url = https://github.com/hijimasa/leo_common-ros2-for-unity.git
