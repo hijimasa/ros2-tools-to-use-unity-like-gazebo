@@ -4,6 +4,9 @@ controller_manager:
 
     diff_drive_controller:
       type: diff_drive_controller/DiffDriveController
+      
+    differential_system_controller:
+      type: differential_system_controller/DifferentialSystemController
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -51,4 +54,10 @@ diff_drive_controller:
     angular.z.min_acceleration: -3.0
     angular.z.max_jerk: 0.5
     angular.z.min_jerk: -0.5
+
+differential_system_controller:
+  ros__parameters:
+    left_joint_name  : 'rocker_L_joint'
+    right_joint_name : 'rocker_R_joint'
+    force_constant : 20.0
 

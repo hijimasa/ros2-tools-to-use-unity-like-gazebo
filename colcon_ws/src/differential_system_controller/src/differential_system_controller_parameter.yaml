@@ -1,0 +1,17 @@
+differential_system_controller:
+  left_joint_name: {
+    type: string,
+    default_value: "",
+    description:  "left joint name",
+  }
+  right_joint_name: {
+    type: string,
+    default_value: "",
+    description:  "right joint name",
+  }
+  force_constant: {
+    type: double,
+    default_value: 100.0,
+    description: "force constant",
+  }
+

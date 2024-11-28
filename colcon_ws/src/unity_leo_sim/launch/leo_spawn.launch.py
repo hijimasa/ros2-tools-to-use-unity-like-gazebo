@@ -73,6 +73,12 @@ def generate_launch_description():
         arguments=["diff_drive_controller", "--controller-manager", "/controller_manager"],
     )
 
+    differential_system_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["differential_system_controller", "--controller-manager", "/controller_manager"],
+    )
+
     velocity_converter = Node(
         package='velocity_pub',
         name='velocity_pub',
@@ -114,6 +120,7 @@ def generate_launch_description():
         node_robot_state_publisher,
         joint_state_broadcaster_spawner,
         diff_drive_controller_spawner,
+        differential_system_controller_spawner,
         velocity_converter,
         isaac_spawn_robot,
         image_republish,

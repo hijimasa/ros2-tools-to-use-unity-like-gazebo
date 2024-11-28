@@ -1,0 +1,7 @@
+<library path="differential_system_controller">
+  <class name="differential_system_controller/DifferentialSystemController" type="differential_system_controller::DifferentialSystemController" base_class_type="controller_interface::ControllerInterface">
+  <description>
+    The differential system controller transforms force for each joints into signals for each joints.
+  </description>
+  </class>
+</library>
