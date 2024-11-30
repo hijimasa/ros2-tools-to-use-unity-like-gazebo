@@ -8,8 +8,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEditor;
+using Unity.EditorCoroutines.Editor;
+using UnityEditor.SceneManagement;
+using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Unity.Robotics.UrdfImporter;
+using Unity.Robotics.UrdfImporter.Control;
 
 using UnitySensors.Sensor.Camera;
 using UnitySensors.Sensor.LiDAR;
@@ -17,14 +22,38 @@ using UnitySensors.ROS.Publisher.Camera;
 using UnitySensors.ROS.Publisher.Sensor;
 using UnitySensors.ROS.Serializer.Sensor;
 
+public class FileLogger
+{
+    private static string logFilePath = "debug_log.txt";
+
+    public static void Log(string message)
+    {
+        File.AppendAllText(logFilePath, message + "\n");
+    }
+}
+
+// 保存するためのXDrive設定用クラス
+[System.Serializable]
+public class XDriveSettings
+{
+    public string joint_name;
+    public float stiffness;
+    public float damping;
+    public float forceLimit;
+
+    public XDriveSettings(string joint_name, float stiffness, float damping, float forceLimit)
+    {
+        this.joint_name = joint_name;
+        this.stiffness = stiffness;
+        this.damping = damping;
+        this.forceLimit = forceLimit;
+    }
+}
+
 [InitializeOnLoad]
-[ExecuteInEditMode]
-public class RemoteCommandListener : MonoBehaviour
+public class RemoteCommandListenerInitializer : MonoBehaviour
 {
     private static RemoteCommandListener instance = null;
-    private TcpListener listener = null;
-    private TcpClient client = null;
-    private bool isRunning = false;
 
     private class StartUpData : ScriptableSingleton<StartUpData>
     {
@@ -36,10 +65,10 @@ public class RemoteCommandListener : MonoBehaviour
         }
     }
 
-    static RemoteCommandListener()
+    static RemoteCommandListenerInitializer()
     {
         // エディタが完全に起動した後に初期化する
-        EditorApplication.delayCall += RemoteCommandListener.Initialize;
+        EditorApplication.delayCall += RemoteCommandListenerInitializer.Initialize;
     }
 
     private static void Initialize()
@@ -54,11 +83,25 @@ public class RemoteCommandListener : MonoBehaviour
         GameObject obj = new GameObject("RemoteCommandListener");
         instance = obj.AddComponent<RemoteCommandListener>();
         
-        EditorApplication.delayCall -= RemoteCommandListener.Initialize;
+        EditorApplication.delayCall -= RemoteCommandListenerInitializer.Initialize;
     }
+}
+
+[ExecuteInEditMode]
+public class RemoteCommandListener : MonoBehaviour
+{
+    private TcpListener listener = null;
+    private TcpClient client = null;
+    private bool isRunning = false;
+    private GameObject robotObject;
 
     private async void Start()
     {
+        Debug.Log("Start Called...");
+        if (Application.isPlaying)
+        {
+            return;
+        }
         if (isRunning) return; // 多重起動防止
         isRunning = true;
 
@@ -102,6 +145,31 @@ public class RemoteCommandListener : MonoBehaviour
         }
     }
 
+    private Task<GameObject> WaitForEditorCoroutine(IEnumerator<GameObject> coroutine)
+    {
+        var taskCompletionSource = new TaskCompletionSource<GameObject>();
+
+        EditorCoroutineUtility.StartCoroutineOwnerless(HandleCoroutine(coroutine, taskCompletionSource));
+        return taskCompletionSource.Task;
+    }
+
+    private IEnumerator<GameObject> HandleCoroutine(IEnumerator<GameObject> coroutine, TaskCompletionSource<GameObject> tcs)
+    {
+        GameObject result = null;
+
+        while (coroutine.MoveNext())
+        {
+            if (coroutine.Current is GameObject)
+            {
+                result = coroutine.Current as GameObject;
+            }
+
+            yield return coroutine.Current;
+        }
+
+        tcs.SetResult(result);
+    }
+    
     private async void HandleClient(TcpClient client)
     {
         NetworkStream stream = client.GetStream();
@@ -120,8 +188,14 @@ public class RemoteCommandListener : MonoBehaviour
         bool robot_fixed = bool.Parse(commands[8]);
 
         Debug.Log("Received URDF path: " + urdfFilePath);
+
+        EditorGUI.BeginChangeCheck();
+
         ImportSettings settings = new ImportSettings();
-        GameObject robotObject = UrdfRobotExtensions.CreateRuntime(urdfFilePath, settings);
+        //GameObject robotObject = UrdfRobotExtensions.CreateRuntime(urdfFilePath, settings);
+        GameObject robotObject = await WaitForEditorCoroutine(
+                UrdfRobotExtensions.Create(urdfFilePath, settings)
+            );
 
         Vector3 newPosition = new Vector3(robot_x, robot_y, robot_z);
         robotObject.transform.position = newPosition;
@@ -255,16 +329,27 @@ public class RemoteCommandListener : MonoBehaviour
                                 {
                                     Debug.Log(materialName + ": " + linkName);
                                     Collider meshCollider = targetCollision.gameObject.GetComponent<Collider>();
-
-                                    string path = directoryPath + "/PhysicsMaterials/" + materialName + ".physicMaterial";
-                                    PhysicsMaterial loadedMaterial = AssetDatabase.LoadAssetAtPath<PhysicsMaterial>(path);
+                                    if (meshCollider != null)
+                                    {
+                                        string path = directoryPath + "/PhysicsMaterials/" + materialName + ".physicMaterial";
+                                        PhysicsMaterial loadedMaterial = AssetDatabase.LoadAssetAtPath<PhysicsMaterial>(path);
                                     
-                                    meshCollider.material = loadedMaterial;
+                                        meshCollider.material = loadedMaterial;
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            }
+            
+            if (EditorGUI.EndChangeCheck())
+            {
+                var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+                if (prefabStage != null)
+                    EditorSceneManager.MarkSceneDirty(prefabStage.scene);
+                var scene = SceneManager.GetActiveScene();
+                EditorSceneManager.MarkSceneDirty(scene);
             }
         }
 
@@ -347,16 +432,8 @@ public class RemoteCommandListener : MonoBehaviour
                 }
             }
         }
-    }
-
-    private static void CleanUp()
-    {
-        if (instance != null)
-        {
-            instance.StopListener();
-            DestroyImmediate(instance.gameObject); // 不要なオブジェクトを削除
-            instance = null;
-        }
+        
+        DestroyImmediate(robotObject.GetComponent<Controller>());
     }
 
     private void StopListener()
