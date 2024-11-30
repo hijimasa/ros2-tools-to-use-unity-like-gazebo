@@ -27,5 +27,6 @@ docker run -it --rm \
   -v ${file_dir}/.config/unityhub:/home/unity/.config/unityhub \
   -v ${file_dir}/.config/unity3d:/home/unity/.config/unity3d \
   -v ${file_dir}/.config/google-chrome:/home/unity/.config/google-chrome \
+  -v ${file_dir}/.local/share/unity3d:/home/unity/.local/share/unity3d \
   -v ${file_dir}/Unity:/home/unity/Unity \
   -it --name "ros-humble-unity" ${user}/ros-humble-jammy-unity
