@@ -204,7 +204,7 @@ public class CameraMover : MonoBehaviour
 }
 
 [InitializeOnLoad]
-public class CameraMoverPlacer : MonoBehaviour
+public class CameraMoverPlacer
 {
     private static CameraMover instance = null;
 
@@ -220,7 +220,7 @@ public class CameraMoverPlacer : MonoBehaviour
 
     static CameraMoverPlacer()
     {
-        EditorApplication.delayCall += CameraMoverPlacer.Initialize;
+        EditorApplication.update += CameraMoverPlacer.Initialize;
     }
 
     private static void Initialize()
@@ -233,7 +233,7 @@ public class CameraMoverPlacer : MonoBehaviour
         GameObject obj = new GameObject("CameraMover");
         instance = obj.AddComponent<CameraMover>();
         
-        EditorApplication.delayCall -= CameraMoverPlacer.Initialize;
+        EditorApplication.update -= CameraMoverPlacer.Initialize;
     }
 
 }

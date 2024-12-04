@@ -1,112 +1,167 @@
 <unity_prefs version_major="1" version_minor="1">
-	<pref name="Create3DObject.PlaceAtWorldOrigin" type="int">1</pref>
-	<pref name="RecentlyUsedImageApp5" type="string"></pref>
+	<pref name="EditorBusyProgressDialogDelay" type="float">3</pref>
+	<pref name="MainView_safe_modew" type="float">1920</pref>
 	<pref name="Scene/Background for Prefabs" type="string">U2NlbmUvQmFja2dyb3VuZCBmb3IgUHJlZmFiczswLjEzMjswLjIzMTswLjMzOzE=</pref>
+	<pref name="Adaptive Probe Volumes/Level 5 Subdivision" type="string">QWRhcHRpdmUgUHJvYmUgVm9sdW1lcy9MZXZlbCA1IFN1YmRpdmlzaW9uOzAuNzg0MzEzNzswLjg5MDE5NjE7MC4xNTI5NDEyOzE=</pref>
 	<pref name="UnityEditor.MainViewh" type="float">1017</pref>
-	<pref name="RecentlyUsedImageApp9" type="string"></pref>
+	<pref name="UnityEditor.PackageManager.UI.PackageManagerWindowh" type="float">717</pref>
 	<pref name="PerformBumpMapChecks" type="int">1</pref>
+	<pref name="RecentlyUsedImageApp9" type="string"></pref>
+	<pref name="RecentlyUsedImageApp5" type="string"></pref>
+	<pref name="2D/Tile Palette Background" type="string">MkQvVGlsZSBQYWxldHRlIEJhY2tncm91bmQ7MC4zMjU0OTAyOzAuMzI1NDkwMjswLjMyNTQ5MDI7MC40OTgwMzkyOzAuMTY4NjI3NTswLjE2ODYyNzU7MC4xNjg2Mjc1OzAuNDk4MDM5Mg==</pref>
 	<pref name="EditorTextSharpness_Inter-Regular" type="float">0</pref>
-	<pref name="Scene/Selected Outline" type="string">U2NlbmUvU2VsZWN0ZWQgT3V0bGluZTsxOzAuNDswOzA=</pref>
-	<pref name="Scene/Y Axis" type="string">U2NlbmUvWSBBeGlzOzAuNjAzOTIxNjswLjk1Mjk0MTI7MC4yODIzNTM7MC45Mw==</pref>
-	<pref name="overlay-show-orientation-background" type="int">0</pref>
+	<pref name="SaveScenesBeforeBuilding" type="int">0</pref>
+	<pref name="MainView_safe_modeh" type="float">1017</pref>
 	<pref name="Scene/Grid" type="string">U2NlbmUvR3JpZDswLjU7MC41OzAuNTswLjQ=</pref>
-	<pref name="TerrainFillHeightmapUsingNeighbors" type="int">1</pref>
+	<pref name="MetaMask.MetaMaskInstallerWindowz" type="int">0</pref>
+	<pref name="Scene/Y Axis" type="string">U2NlbmUvWSBBeGlzOzAuNjAzOTIxNjswLjk1Mjk0MTI7MC4yODIzNTM7MC45Mw==</pref>
 	<pref name="RestoredMainWindowSizeH" type="float">1043</pref>
-	<pref name="UnityEditor.MainViewz" type="int">0</pref>
-	<pref name="UnityEditor.PreferenceSettingsWindoww" type="float">641</pref>
+	<pref name="Scene/Selected Outline" type="string">U2NlbmUvU2VsZWN0ZWQgT3V0bGluZTsxOzAuNDswOzA=</pref>
+	<pref name="TerrainFillHeightmapUsingNeighbors" type="int">1</pref>
 	<pref name="Animation/Property Candidate" type="string">QW5pbWF0aW9uL1Byb3BlcnR5IENhbmRpZGF0ZTsxOzAuNzswLjY7MTsxOzAuNjc7MC40Mzsx</pref>
 	<pref name="AudioMixerUseRMSMetering" type="int">1</pref>
-	<pref name="SaveScenesBeforeBuilding" type="int">0</pref>
 	<pref name="GICacheCompressionLevel" type="int">1</pref>
-	<pref name="kProjectBasePath" type="string">L2hvbWUvdW5pdHkvd29yay9Sb2JvdF9Vbml0eV9BcHA=</pref>
 	<pref name="Scene/Selected Children Outline" type="string">U2NlbmUvU2VsZWN0ZWQgQ2hpbGRyZW4gT3V0bGluZTswLjM2ODYyNzU7MC40NjY2NjY3OzAuNjA3ODQzMjsw</pref>
-	<pref name="RecentlyUsedScriptApp8" type="string"></pref>
+	<pref name="kProjectBasePath" type="string">L2hvbWUvdW5pdHkvd29yay9Sb2JvdF9Vbml0eV9BcHA=</pref>
+	<pref name="UnityEditor.MainViewz" type="int">0</pref>
+	<pref name="overlay-show-orientation-background" type="int">0</pref>
 	<pref name="Editor.kEnableCompilerMessagesLocalization" type="int">0</pref>
+	<pref name="UnityEditor.PreferenceSettingsWindoww" type="float">757</pref>
 	<pref name="RecentlyUsedImageApp3" type="string"></pref>
-	<pref name="RecentlyUsedImageApp6" type="string"></pref>
+	<pref name="UnityEditor.TooltipVieww" type="float">33</pref>
 	<pref name="Cloth/Self or Inter Collision Particle Color 2" type="string">Q2xvdGgvU2VsZiBvciBJbnRlciBDb2xsaXNpb24gUGFydGljbGUgQ29sb3IgMjswLjU2ODYyNzU7MC45NTY4NjI3OzAuNTQ1MDk4MTswLjU=</pref>
+	<pref name="UnityEditor.PackageImporty" type="float">241</pref>
+	<pref name="MetaMask.MetaMaskGettingStartedWindoww" type="float">400</pref>
 	<pref name="ShortcutManager_ProfileMigrated" type="int">1</pref>
 	<pref name="Trail Renderer/Bounds" type="string">VHJhaWwgUmVuZGVyZXIvQm91bmRzOzE7MC45MjE1Njg2OzAuMDE1Njg2Mjg7MQ==</pref>
 	<pref name="Scene/Constrain Proportions Scale Handle" type="string">U2NlbmUvQ29uc3RyYWluIFByb3BvcnRpb25zIFNjYWxlIEhhbmRsZTswLjc0NTA5ODE7MC43NDUwOTgxOzAuNzQ1MDk4MTsx</pref>
 	<pref name="Scene/Preselection Highlight" type="string">U2NlbmUvUHJlc2VsZWN0aW9uIEhpZ2hsaWdodDswLjc4ODIzNTM7MC43ODQzMTM3OzAuNTY0NzA1OTswLjg5</pref>
 	<pref name="Scene/Wireframe Overlay" type="string">U2NlbmUvV2lyZWZyYW1lIE92ZXJsYXk7MDswOzA7MC4yNQ==</pref>
 	<pref name="Scene/Wireframe Selected" type="string">U2NlbmUvV2lyZWZyYW1lIFNlbGVjdGVkOzAuMzY4NjI3NTswLjQ2NjY2Njc7MC42MDc4NDMyOzAuMjUwOTgwNA==</pref>
+	<pref name="MetaMask.MetaMaskInstallerWindowx" type="float">3400</pref>
+	<pref name="Adaptive Probe Volumes/Level 2 Subdivision" type="string">QWRhcHRpdmUgUHJvYmUgVm9sdW1lcy9MZXZlbCAyIFN1YmRpdmlzaW9uOzE7MC4zOTIxNTY5OzAuMTc2NDcwNjsx</pref>
+	<pref name="2D/Tile Palette Grid" type="string">MkQvVGlsZSBQYWxldHRlIEdyaWQ7MTsxOzE7MC4x</pref>
+	<pref name="RecentlyUsedScriptApp8" type="string"></pref>
+	<pref name="UnityEditor.PackageImportx" type="float">3255</pref>
 	<pref name="RecentlyUsedImageApp2" type="string"></pref>
+	<pref name="RecentlyUsedImageApp6" type="string"></pref>
+	<pref name="MetaMask.MetaMaskInstallerWindowy" type="float">330</pref>
+	<pref name="UnityEditor.PackageManager.UI.Internal.SelectionWindowy" type="float">287</pref>
 	<pref name="Trail Renderer/Shape Gizmos" type="string">VHJhaWwgUmVuZGVyZXIvU2hhcGUgR2l6bW9zOzAuNTgwMzkyMjswLjg5ODAzOTI7MTswLjk=</pref>
 	<pref name="Scene/UI Collider Handle" type="string">U2NlbmUvVUkgQ29sbGlkZXIgSGFuZGxlOzAuNTY4NjI3NTswLjk1Njg2Mjc7MC41NDUwOTgxOzAuODIzNTI5NA==</pref>
+	<pref name="Scene/Volume Gizmo" type="string">U2NlbmUvVm9sdW1lIEdpem1vOzAuMjswLjg7MC4xOzAuMTI1</pref>
 	<pref name="RecentlyUsedImageApp4" type="string"></pref>
+	<pref name="UnityEditor.PackageManager.UI.PackageManagerWindowz" type="int">0</pref>
 	<pref name="RecentlyUsedImageApp1" type="string"></pref>
 	<pref name="RecentlyUsedScriptApp6" type="string"></pref>
 	<pref name="kDiffsDefaultApp" type="string">Q3VzdG9tIFRvb2w=</pref>
 	<pref name="Scene/Back-Facing Geometry" type="string">U2NlbmUvQmFjay1GYWNpbmcgR2VvbWV0cnk7MC40OTQxMTc2OzAuMTgwMzkyMjswLjg1MDk4MDQ7MQ==</pref>
-	<pref name="UseInspectorExpandedState" type="int">0</pref>
-	<pref name="Scene/Wireframe" type="string">U2NlbmUvV2lyZWZyYW1lOzA7MDswOzAuNQ==</pref>
 	<pref name="RestoredMainWindowSizeY" type="float">37</pref>
+	<pref name="Adaptive Probe Volumes/Level 4 Subdivision" type="string">QWRhcHRpdmUgUHJvYmUgVm9sdW1lcy9MZXZlbCA0IFN1YmRpdmlzaW9uOzE7MC4yNzg0MzE0OzAuMzgwMzkyMjsx</pref>
+	<pref name="Scene/Wireframe" type="string">U2NlbmUvV2lyZWZyYW1lOzA7MDswOzAuNQ==</pref>
+	<pref name="UseInspectorExpandedState" type="int">0</pref>
+	<pref name="UnityEditor.TooltipViewx" type="float">2832</pref>
 	<pref name="Editor.kEditorLocale" type="string">RW5nbGlzaA==</pref>
+	<pref name="UnityEditor.PackageManager.UI.PackageManagerWindoww" type="float">976</pref>
+	<pref name="Adaptive Probe Volumes/Level 3 Subdivision" type="string">QWRhcHRpdmUgUHJvYmUgVm9sdW1lcy9MZXZlbCAzIFN1YmRpdmlzaW9uOzAuMjAzOTIxNjswLjM0MTE3NjU7MTsx</pref>
+	<pref name="UnityEditor.TooltipViewy" type="float">101</pref>
 	<pref name="RecentlyUsedScriptApp2" type="string"></pref>
 	<pref name="RecentlyUsedScriptApp9" type="string"></pref>
 	<pref name="Cloth/Brush Color 2" type="string">Q2xvdGgvQnJ1c2ggQ29sb3IgMjswOzA7MDswLjI=</pref>
+	<pref name="UnityEditor.TooltipViewz" type="int">0</pref>
 	<pref name="Scene/X Axis" type="string">U2NlbmUvWCBBeGlzOzAuODU4ODIzNTswLjI0MzEzNzM7MC4xMTM3MjU1OzAuOTM=</pref>
 	<pref name="UnityEditor.PreferenceSettingsWindowh" type="float">508</pref>
 	<pref name="Cloth/Unselected Self or Inter Collision Particle Color 2" type="string">Q2xvdGgvVW5zZWxlY3RlZCBTZWxmIG9yIEludGVyIENvbGxpc2lvbiBQYXJ0aWNsZSBDb2xvciAyOzAuMTswLjE7MC4xOzAuNQ==</pref>
+	<pref name="metamask.installer.showOnStartup" type="int">0</pref>
 	<pref name="RecentlyUsedProjectPaths-0" type="string">L2hvbWUvdW5pdHkvd29yay9Sb2JvdF9Vbml0eV9BcHA=</pref>
-	<pref name="kWorkspacePath" type="string">L2hvbWUvdW5pdHkvd29yay9Sb2JvdF9Vbml0eV9BcHA=</pref>
+	<pref name="MainView_safe_modey" type="float">37</pref>
+	<pref name="MetaMask.MetaMaskGettingStartedWindowz" type="int">0</pref>
 	<pref name="ReopenLastUsedProjectOnStartup" type="int">0</pref>
+	<pref name="MainView_safe_modex" type="float">1920</pref>
+	<pref name="kWorkspacePath" type="string">L2hvbWUvdW5pdHkvd29yay9Sb2JvdF9Vbml0eV9BcHA=</pref>
 	<pref name="RecentlyUsedScriptApp1" type="string"></pref>
+	<pref name="UnityEditor.PackageImportw" type="float">350</pref>
 	<pref name="Scene/Selected Axis" type="string">U2NlbmUvU2VsZWN0ZWQgQXhpczswLjk2NDcwNTk7MC45NDkwMTk2OzAuMTk2MDc4NDswLjg5</pref>
-	<pref name="Scene/Background" type="string">U2NlbmUvQmFja2dyb3VuZDswLjI3ODQzMTswLjI3ODQzMTswLjI3ODQzMTsx</pref>
-	<pref name="GraphSnapping" type="int">1</pref>
+	<pref name="UnityEditor.PackageManager.UI.Internal.SelectionWindowz" type="int">0</pref>
+	<pref name="Scene/Decal" type="string">U2NlbmUvRGVjYWw7MTsxOzE7MC4wMzEzNzI1NQ==</pref>
+	<pref name="MetaMask.MetaMaskGettingStartedWindowy" type="float">330</pref>
 	<pref name="ScriptDebugInfoEnabled" type="int">0</pref>
 	<pref name="SettingsWindow_Preferences_current_provider" type="string">UHJlZmVyZW5jZXMvU2NlbmUgVmlldw==</pref>
 	<pref name="AllowAlphaNumericHierarchy" type="int">0</pref>
 	<pref name="EnableConstrainProportionsTransformScale" type="int">0</pref>
 	<pref name="EnableExtendedLogging" type="int">0</pref>
-	<pref name="RestoredMainWindowSizeX" type="float">1920</pref>
-	<pref name="Playmode tint" type="string">UGxheW1vZGUgdGludDswLjg7MC44OzAuODsx</pref>
-	<pref name="SettingsWindow_m_Splitter" type="float">0.2</pref>
-	<pref name="Scene/Material Validator Value Too Low" type="string">U2NlbmUvTWF0ZXJpYWwgVmFsaWRhdG9yIFZhbHVlIFRvbyBMb3c7MTswOzA7MQ==</pref>
+	<pref name="Adaptive Probe Volumes/Level 1 Subdivision" type="string">QWRhcHRpdmUgUHJvYmUgVm9sdW1lcy9MZXZlbCAxIFN1YmRpdmlzaW9uOzAuMjExNzY0NzswLjgxNTY4NjM7MC44OTQxMTc3OzE=</pref>
+	<pref name="ProjectBrowserFavorites" type="int">1</pref>
 	<pref name="IsMainWindowMaximized" type="int">1</pref>
+	<pref name="Playmode tint" type="string">UGxheW1vZGUgdGludDswLjg7MC44OzAuODsx</pref>
+	<pref name="Scene/Material Validator Value Too Low" type="string">U2NlbmUvTWF0ZXJpYWwgVmFsaWRhdG9yIFZhbHVlIFRvbyBMb3c7MTswOzA7MQ==</pref>
+	<pref name="PackageManager.SidebarWidthPrefs" type="float">225</pref>
+	<pref name="RestoredMainWindowSizeX" type="float">1920</pref>
 	<pref name="UnityEditor.MainViewy" type="float">37</pref>
+	<pref name="Adaptive Probe Volumes/Level 0 Subdivision" type="string">QWRhcHRpdmUgUHJvYmUgVm9sdW1lcy9MZXZlbCAwIFN1YmRpdmlzaW9uOzAuNTI5NDExODswLjEzNzI1NDk7MTsx</pref>
+	<pref name="Scene/Background" type="string">U2NlbmUvQmFja2dyb3VuZDswLjI3ODQzMTswLjI3ODQzMTswLjI3ODQzMTsx</pref>
+	<pref name="UnityEditor.PackageImporth" type="float">350</pref>
+	<pref name="MetaMask.MetaMaskGettingStartedWindowx" type="float">3432</pref>
+	<pref name="ProjectBrowserPackages" type="int">1</pref>
+	<pref name="unity.editor_session_count" type="string">MTA=</pref>
 	<pref name="RecentlyUsedImageApp8" type="string"></pref>
-	<pref name="RecentlyUsedImageApp0" type="string"></pref>
-	<pref name="unity.editor_session_count" type="string">Mg==</pref>
 	<pref name="kAutoRefreshMode" type="int">1</pref>
+	<pref name="GraphSnapping" type="int">1</pref>
 	<pref name="Scene/Z Axis" type="string">U2NlbmUvWiBBeGlzOzAuMjI3NDUxOzAuNDc4NDMxNDswLjk3MjU0OTswLjkz</pref>
 	<pref name="RecentlyUsedScriptApp3" type="string"></pref>
+	<pref name="UnityEditor.PackageManager.UI.PackageManagerWindowx" type="float">2668</pref>
+	<pref name="ProjectBrowserAssets" type="int">1</pref>
+	<pref name="SettingsWindow_m_Splitter" type="float">0.2</pref>
 	<pref name="Scene/Center Axis" type="string">U2NlbmUvQ2VudGVyIEF4aXM7MC44OzAuODswLjg7MC45Mw==</pref>
 	<pref name="Scene/Receive + Contribute GI (Lightmaps)" type="string">U2NlbmUvUmVjZWl2ZSArIENvbnRyaWJ1dGUgR0kgKExpZ2h0bWFwcyk7MC4xODQzMTM3OzAuNjswLjE2MDc4NDM7MQ==</pref>
 	<pref name="Animation/Property Animated" type="string">QW5pbWF0aW9uL1Byb3BlcnR5IEFuaW1hdGVkOzAuODI7MC45NzsxOzE7MC41NDswLjg1OzE7MQ==</pref>
+	<pref name="MetaMask.MetaMaskInstallerWindowh" type="float">318</pref>
+	<pref name="RecentlyUsedImageApp0" type="string"></pref>
 	<pref name="Animation/Property Recorded" type="string">QW5pbWF0aW9uL1Byb3BlcnR5IFJlY29yZGVkOzE7MC42OzAuNjsxOzE7MC41OzAuNTsx</pref>
+	<pref name="UnityEditor.PackageManager.UI.PackageManagerWindowy" type="float">62</pref>
 	<pref name="RecentlyUsedScriptApp4" type="string"></pref>
+	<pref name="2D/Tile Palette Background Edit" type="string">MkQvVGlsZSBQYWxldHRlIEJhY2tncm91bmQgRWRpdDswLjAwMzkyMTU2OTswLjEzNzI1NDk7MC4zNTI5NDEyOzAuNDk4MDM5MjswLjAwMzkyMTU2OTswLjEzNzI1NDk7MC4zNTI5NDEyOzAuNDk4MDM5Mg==</pref>
 	<pref name="Scene/Guide Line" type="string">U2NlbmUvR3VpZGUgTGluZTswLjU7MC41OzAuNTswLjI=</pref>
 	<pref name="Editor.kEnableEditorLocalization" type="int">1</pref>
-	<pref name="unity.editor_sessionid" type="string">ODE1MjIxNDc4OTMyMjM3MzU4Ng==</pref>
+	<pref name="unity.editor_sessionid" type="string">MzQ3NzIwMTA3MjU4NTA3MzQ2MA==</pref>
 	<pref name="RecentlyUsedImageApp7" type="string"></pref>
+	<pref name="UnityEditor.PackageManager.UI.Internal.SelectionWindoww" type="float">415</pref>
+	<pref name="PackageManager.PageId_441b1c72-51ab-810f-b67b-7a90268877cf" type="string">SW5Qcm9qZWN0</pref>
 	<pref name="UnityEditor.PreferenceSettingsWindowz" type="int">0</pref>
 	<pref name="UnityEditor.PreferenceSettingsWindowx" type="float">2044</pref>
+	<pref name="UnityEditor.TooltipViewh" type="float">24</pref>
+	<pref name="MetaMask.MetaMaskInstallerWindoww" type="float">440</pref>
 	<pref name="RecentlyUsedScriptApp0" type="string"></pref>
+	<pref name="Scene/Grid Component" type="string">U2NlbmUvR3JpZCBDb21wb25lbnQ7MTsxOzE7MC4x</pref>
 	<pref name="UnityEditor.MainVieww" type="float">1920</pref>
 	<pref name="ScriptCompilationDuringPlay" type="int">0</pref>
 	<pref name="EditorTextRenderingMode" type="int">0</pref>
+	<pref name="metamask.dependencies.status" type="string">e30=</pref>
 	<pref name="EnableEditorAnalyticsV2" type="int">1</pref>
+	<pref name="SecondarySpriteTexturePropertyNames" type="string">X01hc2tUZXgsX05vcm1hbE1hcA==</pref>
 	<pref name="TerrainFillAddressMode" type="int">0</pref>
+	<pref name="UnityEditor.PackageManager.UI.Internal.SelectionWindowh" type="float">250</pref>
 	<pref name="Scene/Receive + Contribute GI (Light Probes)" type="string">U2NlbmUvUmVjZWl2ZSArIENvbnRyaWJ1dGUgR0kgKExpZ2h0IFByb2Jlcyk7MC4xMzcyNTQ5OzAuMDU4ODIzNTM7MC42OzE=</pref>
 	<pref name="PlayerConnectionLoggingState" type="int">1</pref>
+	<pref name="MetaMask.MetaMaskGettingStartedWindowh" type="float">200</pref>
 	<pref name="RecentlyUsedScriptApp5" type="string"></pref>
-	<pref name="UnityConnectUrlConfiguration" type="string">eyJ2YWx1ZSI6IntcImNvcmVcIjpcImh0dHBzOi8vY29yZS5jbG91ZC51bml0eTNkLmNvbVwiLFwid2ViYXV0aFwiOlwiaHR0cHM6Ly9hY2NvdW50cy51bml0eTNkLmNvbVwiLFwiaWRlbnRpdHlcIjpcImh0dHBzOi8vYXBpLnVuaXR5LmNvbVwiLFwibGljZW5zZVwiOlwiaHR0cHM6Ly9saWNlbnNlLnVuaXR5M2QuY29tXCIsXCJhY3RpdmF0aW9uXCI6XCJodHRwczovL2FjdGl2YXRpb24udW5pdHkzZC5jb21cIixcInBlcmZcIjpcImh0dHBzOi8vcGVyZi5jbG91ZC51bml0eTNkLmNvbVwiLFwicG9ydGFsXCI6XCJodHRwczovL2lkLnVuaXR5LmNvbVwiLFwiaHViX2luc3RhbGxlcl9sb2NhdGlvblwiOlwiaHR0cHM6Ly9wdWJsaWMtY2RuLmNsb3VkLnVuaXR5M2QuY29tL2h1Yi9wcm9kL1wiLFwiYWN0aXZpdHktZmVlZFwiOmZhbHNlLFwiYW5hbHl0aWNzXCI6XCJodHRwczovL2FuYWx5dGljcy5jbG91ZC51bml0eTNkLmNvbVwiLFwiY2RwLWFuYWx5dGljc1wiOlwiaHR0cHM6Ly9wcmQtbGVuZGVyLmNkcC5pbnRlcm5hbC51bml0eTNkLmNvbVwiLFwiYW5hbHl0aWNzT3B0T3V0XCI6XCJodHRwczovL2NvbmZpZy51Y2EuY2xvdWQudW5pdHkzZC5jb20vXCIsXCJsaXZlUGxhdGZvcm1cIjpcImh0dHBzOi8vbGl2ZS1wbGF0Zm9ybS1hcGkucHJkLmxkLnVuaXR5M2QuY29tL2dyYXBocWxcIixcInNlcnZpY2VzR2F0ZXdheVwiOlwiaHR0cHM6Ly9zZXJ2aWNlcy51bml0eS5jb21cIixcInByb2ZpbGVEYXNoYm9hcmRcIjpcImh0dHBzOi8vY2xvdWQudW5pdHkuY29tXCIsXCJhZHNcIjpcImh0dHBzOi8vdW5pdHlhZHMudW5pdHkzZC5jb20vYWRtaW5cIixcImFzc2V0X3N0b3JlX2FwaVwiOlwiaHR0cHM6Ly9wYWNrYWdlcy12Mi51bml0eS5jb21cIixcImFzc2V0X3N0b3JlX3VybFwiOlwiaHR0cHM6Ly9hc3NldHN0b3JlLnVuaXR5LmNvbVwiLFwiYnVpbGRcIjpcImh0dHBzOi8vZGV2ZWxvcGVyLmNsb3VkLnVuaXR5M2QuY29tXCIsXCJidWlsZC1hcGlcIjpcImh0dHBzOi8vYnVpbGQtYXBpLmNsb3VkLnVuaXR5M2QuY29tXCIsXCJidWlsZF91cGxvYWRfYXBpX3VybFwiOlwiaHR0cHM6Ly9idWlsZC1hcnRpZmFjdC1hcGkuY2xvdWQudW5pdHkzZC5jb21cIixcImNsb3VkZGF0YVwiOlwiaHR0cHM6Ly9kYXRhLmNsb3VkLnVuaXR5M2QuY29tXCIsXCJjb2xsYWJcIjpcImh0dHBzOi8vY29sbGFiLmNsb3VkLnVuaXR5M2QuY29tXCIsXCJjb2xsYWItYWNjZWxlcmF0b3JcIjpcImh0dHBzOi8vY29sbGFiLWFjY2VsZXJhdG9yLmNsb3VkLnVuaXR5M2QuY29tXCIsXCJjb2xsYWItbWF4LWZpbGVzLXBlci1jb21taXRcIjoxMDAwMCxcImNvbW1lbnRpbmdcIjpcImh0dHBzOi8vY29tbWVudGluZy5jbG91ZC51bml0eTNkLmNvbVwiLFwiY29yZWVtYmVkZGVkXCI6XCJodHRwczovL2VtYmVkZGVkLmNsb3VkLnVuaXR5M2QuY29tXCIsXCJjb3JldWlcIjpcImh0dHBzOi8vZGV2ZWxvcGVyLmNsb3VkLnVuaXR5M2QuY29tXCIsXCJnZW5lc2lzX2FwaV91cmxcIjpcImh0dHBzOi8vYXBpLnVuaXR5LmNvbVwiLFwiZ2VuZXNpc19zZXJ2aWNlX3VybFwiOlwiaHR0cHM6Ly9pZC51bml0eS5jb21cIixcImh1Yi1kaXNhYmxlLW1hcmtldGluZy10aXBzXCI6ZmFsc2UsXCJqdW1wXCI6XCJodHRwczovL2p1bXAuY2xvdWQudW5pdHkzZC5jb21cIixcInBhY2ttYW5fa2V5XCI6XCI2MzU3QzUyMzg4NkU4MTNEMTUwMDQwOEYwNUIwRDdBNlwiLFwicGVyZi1ldmVudHNcIjpcImh0dHBzOi8vYTpiQHBlcmYtZXZlbnRzLmNsb3VkLnVuaXR5M2QuY29tXCIsXCJwZXJmLW1heC1iYXRjaC1zaXplXCI6XCIxXCIsXCJwZXJmLW1heC1ldmVudHNcIjpcIjEwMFwiLFwicGVyZi1zZWNvbmRzLXBlci1iYXRjaFwiOlwiM1wiLFwicHVibnViX3NlcnZpY2Vfb3JpZ2luXCI6XCJ1bml0eS5wdWJudWJhcGkuY29tXCIsXCJzZWF0X3JlcXVpcmVkXCI6dHJ1ZSxcInNlYXRpbmZvdXJsXCI6XCIvdGVhbXMvbGVhcm4tbW9yZVwiLFwic29jaWFsZGFzaGJvYXJkXCI6XCJodHRwczovL2Rhc2hib2FyZC5oZXlwbGF5YXBwLmNvbVwiLFwic3NvXCI6dHJ1ZSxcInVuYXV0aGVudGljYXRlZHVybFwiOlwiL2xhbmRpbmdcIixcInVuZXRcIjpcImh0dHBzOi8vbXVsdGlwbGF5ZXIudW5pdHkzZC5jb21cIixcIndhaXRsaXN0XCI6XCJodHRwczovL2RldmVsb3Blci5jbG91ZC51bml0eTNkLmNvbVwiLFwid2FpdGxpc3RfYXBpXCI6XCJodHRwczovL2NvbGxhYi13YWl0aW5nLWxpc3QuY2xvdWQudW5pdHkzZC5jb21cIixcInNlcnZpY2VzLWdhdGV3YXlcIjpcImh0dHBzOi8vc2VydmljZXMudW5pdHkuY29tXCJ9IiwiY3JlYXRpb24iOjE3MzI5NjUyNzQsImV4cGlyZXMiOjE3NjQ1MDEyNzR9</pref>
 	<pref name="Cloth/Selected Self or Inter Collision Particle Color 2" type="string">Q2xvdGgvU2VsZWN0ZWQgU2VsZiBvciBJbnRlciBDb2xsaXNpb24gUGFydGljbGUgQ29sb3IgMjswLjI1MDk4MDQ7MC42Mjc0NTE7MTswLjU=</pref>
 	<pref name="GICacheEnableCustomPath" type="int">0</pref>
-	<pref name="RecentlyUsedScriptApp7" type="string"></pref>
+	<pref name="UnityEditor.PackageManager.UI.Internal.SelectionWindowx" type="float">3251</pref>
 	<pref name="EnableEditorAnalytics" type="int">1</pref>
 	<pref name="Scene/Material Validator Value Too High" type="string">U2NlbmUvTWF0ZXJpYWwgVmFsaWRhdG9yIFZhbHVlIFRvbyBIaWdoOzA7MDsxOzE=</pref>
+	<pref name="UnityEditor.PackageImportz" type="int">0</pref>
 	<pref name="UnityEditor.MainViewx" type="float">1920</pref>
+	<pref name="RecentlyUsedScriptApp7" type="string"></pref>
 	<pref name="UnityEditor.PreferenceSettingsWindowy" type="float">59</pref>
 	<pref name="RestoredMainWindowSizeW" type="float">1920</pref>
 	<pref name="GICacheMaximumSizeGB" type="int">10</pref>
 	<pref name="Scene/Receive GI Only (Light Probes)" type="string">U2NlbmUvUmVjZWl2ZSBHSSBPbmx5IChMaWdodCBQcm9iZXMpOzAuOTAxOTYwODswLjM4ODIzNTM7MC4wOTgwMzkyMjsx</pref>
 	<pref name="DefaultPrefabModeFromHierarchy" type="int">1</pref>
+	<pref name="MainView_safe_modez" type="int">0</pref>
 	<pref name="Scene/Selected Material Highlight" type="string">U2NlbmUvU2VsZWN0ZWQgTWF0ZXJpYWwgSGlnaGxpZ2h0OzAuNzg0MzEzNzswOzA7MC4zOTIxNTY5</pref>
-	<pref name="EditorUpdateNextCheck" type="int">1732968832</pref>
+	<pref name="EditorUpdateNextCheck" type="int">1733154912</pref>
+	<pref name="PackageManager.LeftContainerWidthPrefs" type="float">246</pref>
 	<pref name="Scene/Material Validator Pure Metal" type="string">U2NlbmUvTWF0ZXJpYWwgVmFsaWRhdG9yIFB1cmUgTWV0YWw7MTsxOzA7MQ==</pref>
-	<pref name="EditorBusyProgressDialogDelay" type="float">3</pref>
+	<pref name="Create3DObject.PlaceAtWorldOrigin" type="int">1</pref>
 </unity_prefs>

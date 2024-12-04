@@ -59,23 +59,21 @@ docker exec -it ros-humble-unity /bin/bash
    ros2 run unity_ros2_scripts launcher
    ```
 
-2. Unityウィンドウをクリックしてスクリプトを有効化
-
-3. URDFをインポート
+2. URDFをインポート
    ```
    ros2 launch unity_diffbot_sim diffbot_spawn.launch.py
    ```
 
-4. `ros_tcp_endpoint`を起動
+3. `ros_tcp_endpoint`を起動
    ```
    ros2 run ros_tcp_endpoint default_server_endpoint --ros-args -p ROS_IP:=0.0.0.0
    ```
 
-5. 地面として使用する「3D Object Plane」を追加
+4. 地面として使用する「3D Object Plane」を追加
 
-6. シミュレーションを実行
+5. シミュレーションを実行
 
-7. `teleop_twist_keyboard`を起動
+6. `teleop_twist_keyboard`を起動
    ```
    ros2 run teleop_twist_keyboard teleop_twist_keyboard
    ```

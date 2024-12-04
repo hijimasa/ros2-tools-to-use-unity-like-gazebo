@@ -51,9 +51,13 @@ public class XDriveSettings
 }
 
 [InitializeOnLoad]
-public class RemoteCommandListenerInitializer : MonoBehaviour
+[ExecuteInEditMode]
+public class RemoteCommandListener
 {
-    private static RemoteCommandListener instance = null;
+    private static TcpListener listener = null;
+    private static TcpClient client = null;
+    private static bool isRunning = false;
+    private static GameObject robotObject;
 
     private class StartUpData : ScriptableSingleton<StartUpData>
     {
@@ -65,10 +69,10 @@ public class RemoteCommandListenerInitializer : MonoBehaviour
         }
     }
 
-    static RemoteCommandListenerInitializer()
+    static RemoteCommandListener()
     {
         // エディタが完全に起動した後に初期化する
-        EditorApplication.delayCall += RemoteCommandListenerInitializer.Initialize;
+        EditorApplication.update += RemoteCommandListener.Initialize;
     }
 
     private static void Initialize()
@@ -77,25 +81,9 @@ public class RemoteCommandListenerInitializer : MonoBehaviour
         if (!StartUpData.instance.IsStartUp())
             return;
 
-        // 既に存在する場合、再作成しない
-        if (instance != null) return;
-
-        GameObject obj = new GameObject("RemoteCommandListener");
-        instance = obj.AddComponent<RemoteCommandListener>();
-        
-        EditorApplication.delayCall -= RemoteCommandListenerInitializer.Initialize;
+        Start();
     }
-}
-
-[ExecuteInEditMode]
-public class RemoteCommandListener : MonoBehaviour
-{
-    private TcpListener listener = null;
-    private TcpClient client = null;
-    private bool isRunning = false;
-    private GameObject robotObject;
-
-    private async void Start()
+    private static async void Start()
     {
         Debug.Log("Start Called...");
         if (Application.isPlaying)
@@ -145,7 +133,7 @@ public class RemoteCommandListener : MonoBehaviour
         }
     }
 
-    private Task<GameObject> WaitForEditorCoroutine(IEnumerator<GameObject> coroutine)
+    private static Task<GameObject> WaitForEditorCoroutine(IEnumerator<GameObject> coroutine)
     {
         var taskCompletionSource = new TaskCompletionSource<GameObject>();
 
@@ -153,7 +141,7 @@ public class RemoteCommandListener : MonoBehaviour
         return taskCompletionSource.Task;
     }
 
-    private IEnumerator<GameObject> HandleCoroutine(IEnumerator<GameObject> coroutine, TaskCompletionSource<GameObject> tcs)
+    private static IEnumerator<GameObject> HandleCoroutine(IEnumerator<GameObject> coroutine, TaskCompletionSource<GameObject> tcs)
     {
         GameObject result = null;
 
@@ -170,7 +158,7 @@ public class RemoteCommandListener : MonoBehaviour
         tcs.SetResult(result);
     }
     
-    private async void HandleClient(TcpClient client)
+    private static async void HandleClient(TcpClient client)
     {
         NetworkStream stream = client.GetStream();
         byte[] buffer = new byte[1024];
@@ -433,10 +421,10 @@ public class RemoteCommandListener : MonoBehaviour
             }
         }
         
-        DestroyImmediate(robotObject.GetComponent<Controller>());
+        UnityEngine.Object.DestroyImmediate(robotObject.GetComponent<Controller>());
     }
 
-    private void StopListener()
+    private static void StopListener()
     {
         isRunning = false;
 
@@ -455,12 +443,12 @@ public class RemoteCommandListener : MonoBehaviour
         }
     }
 
-    private void OnApplicationQuit()
+    private static void OnApplicationQuit()
     {
         StopListener();
     }
 
-    GameObject FindInChildrenByName(Transform parent, string name)
+    private static GameObject FindInChildrenByName(Transform parent, string name)
     {
         // 現在のオブジェクトが目的の名前かを確認
         if (parent.name == name)
@@ -483,7 +471,7 @@ public class RemoteCommandListener : MonoBehaviour
     }
     
     // 特定のコンポーネントを持つ子オブジェクトを取得するメソッド
-    private List<GameObject> GetChildObjectsWithComponent<T>(GameObject parent) where T : Component
+    private static List<GameObject> GetChildObjectsWithComponent<T>(GameObject parent) where T : Component
     {
         List<GameObject> objectsWithComponent = new List<GameObject>();
 
@@ -501,7 +489,7 @@ public class RemoteCommandListener : MonoBehaviour
     }
 
     // ArticulationBodyを持つGameObjectを探してリストとして返す
-    public List<GameObject> FindArticulationBodyObjectsInChildren(GameObject parent)
+    public static List<GameObject> FindArticulationBodyObjectsInChildren(GameObject parent)
     {
         List<GameObject> articulationBodies = new List<GameObject>();
         SearchArticulationBodies(parent.transform, articulationBodies);
@@ -509,7 +497,7 @@ public class RemoteCommandListener : MonoBehaviour
     }
 
     // 再帰的にArticulationBodyを持つ子オブジェクトを検索
-    private void SearchArticulationBodies(Transform parent, List<GameObject> articulationBodies)
+    private static void SearchArticulationBodies(Transform parent, List<GameObject> articulationBodies)
     {
         // 現在のオブジェクトがArticulationBodyを持っている場合、リストに追加
         ArticulationBody articulationBody = parent.GetComponent<ArticulationBody>();

@@ -58,24 +58,22 @@ docker exec -it ros-humble-unity /bin/bash
    ```bash
    ros2 run unity_ros2_scripts launcher
    ```
-   
-2. Click on the Unity window to activate the script
 
-3. Import URDF.
+2. Import URDF.
    ```
    ros2 launch unity_diffbot_sim diffbot_spawn.launch.py
    ```
 
-4. launch ros_tcp_endpoint
+3. launch ros_tcp_endpoint
    ```
    ros2 run ros_tcp_endpoint default_server_endpoint --ros-args -p ROS_IP:=0.0.0.0
    ```
 
-5. Add "3D Object Plane" to use ground plane.
+4. Add "3D Object Plane" to use ground plane.
 
-6. Run Simulation
+5. Run Simulation
 
-7. launch teleop_twist_keyboard
+6. launch teleop_twist_keyboard
    ```
    ros2 run teleop_twist_keyboard teleop_twist_keyboard
    ```
